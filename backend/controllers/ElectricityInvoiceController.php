@@ -3,16 +3,16 @@
 namespace backend\controllers;
 
 use Yii;
-use backend\models\electricity\ElectricityBook;
-use backend\models\electricity\ElectricityBookSearch;
+use backend\models\ElectricityInvoice;
+use backend\models\ElectricityInvoiceSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * ElectricityBookController implements the CRUD actions for ElectricityBook model.
+ * ElectricityInvoiceController implements the CRUD actions for ElectricityInvoice model.
  */
-class ElectricityBookController extends Controller
+class ElectricityInvoiceController extends Controller
 {
     /**
      * @inheritdoc
@@ -30,12 +30,12 @@ class ElectricityBookController extends Controller
     }
 
     /**
-     * Lists all ElectricityBook models.
+     * Lists all ElectricityInvoice models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new ElectricityBookSearch();
+        $searchModel = new ElectricityInvoiceSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -45,7 +45,7 @@ class ElectricityBookController extends Controller
     }
 
     /**
-     * Displays a single ElectricityBook model.
+     * Displays a single ElectricityInvoice model.
      * @param integer $id
      * @return mixed
      */
@@ -57,16 +57,16 @@ class ElectricityBookController extends Controller
     }
 
     /**
-     * Creates a new ElectricityBook model.
+     * Creates a new ElectricityInvoice model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new ElectricityBook();
+        $model = new ElectricityInvoice();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->electricity_book_id]);
+            return $this->redirect(['view', 'id' => $model->electricity_invoice_id]);
         } else {
             return $this->render('create', [
                 'model' => $model,
@@ -75,7 +75,7 @@ class ElectricityBookController extends Controller
     }
 
     /**
-     * Updates an existing ElectricityBook model.
+     * Updates an existing ElectricityInvoice model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -85,7 +85,7 @@ class ElectricityBookController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->electricity_book_id]);
+            return $this->redirect(['view', 'id' => $model->electricity_invoice_id]);
         } else {
             return $this->render('update', [
                 'model' => $model,
@@ -94,7 +94,7 @@ class ElectricityBookController extends Controller
     }
 
     /**
-     * Deletes an existing ElectricityBook model.
+     * Deletes an existing ElectricityInvoice model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -107,15 +107,15 @@ class ElectricityBookController extends Controller
     }
 
     /**
-     * Finds the ElectricityBook model based on its primary key value.
+     * Finds the ElectricityInvoice model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return ElectricityBook the loaded model
+     * @return ElectricityInvoice the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = ElectricityBook::findOne($id)) !== null) {
+        if (($model = ElectricityInvoice::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');

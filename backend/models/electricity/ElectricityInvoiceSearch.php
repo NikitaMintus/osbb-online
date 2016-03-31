@@ -1,16 +1,16 @@
 <?php
 
-namespace backend\models;
+namespace backend\models\electricity;
 
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use backend\models\ElectricityBook;
+use backend\models\electricity\ElectricityInvoice;
 
 /**
- * ElectricityBookSearch represents the model behind the search form about `backend\models\ElectricityBook`.
+ * ElectricityInvoiceSearch represents the model behind the search form about `backend\models\ElectricityInvoice`.
  */
-class ElectricityBookSearch extends ElectricityBook
+class ElectricityInvoiceSearch extends ElectricityInvoice
 {
     /**
      * @inheritdoc
@@ -18,7 +18,9 @@ class ElectricityBookSearch extends ElectricityBook
     public function rules()
     {
         return [
-            [['electricity_book_id', 'int_number_of_contract', 'electricity_rate_id', 'electricity_perk_id', 'electricity_invoice_id'], 'integer'],
+            [['electricity_invoice_id', 'electricity_catalog_rates_invoice_id', 'electricity_perk_id'], 'integer'],
+            [['dec_counter_current', 'dec_counter_previous', 'dec_substraction', 'dec_sum', 'dec_fine', 'dec_total'], 'number'],
+            [['date_of_filling'], 'safe'],
         ];
     }
 
@@ -40,7 +42,7 @@ class ElectricityBookSearch extends ElectricityBook
      */
     public function search($params)
     {
-        $query = ElectricityBook::find();
+        $query = ElectricityInvoice::find();
 
         // add conditions that should always apply here
 
@@ -58,11 +60,16 @@ class ElectricityBookSearch extends ElectricityBook
 
         // grid filtering conditions
         $query->andFilterWhere([
-            'electricity_book_id' => $this->electricity_book_id,
-            'int_number_of_contract' => $this->int_number_of_contract,
-            'electricity_rate_id' => $this->electricity_rate_id,
-            'electricity_perk_id' => $this->electricity_perk_id,
             'electricity_invoice_id' => $this->electricity_invoice_id,
+            'dec_counter_current' => $this->dec_counter_current,
+            'dec_counter_previous' => $this->dec_counter_previous,
+            'dec_substraction' => $this->dec_substraction,
+            'electricity_catalog_rates_invoice_id' => $this->electricity_catalog_rates_invoice_id,
+            'dec_sum' => $this->dec_sum,
+            'electricity_perk_id' => $this->electricity_perk_id,
+            'dec_fine' => $this->dec_fine,
+            'date_of_filling' => $this->date_of_filling,
+            'dec_total' => $this->dec_total,
         ]);
 
         return $dataProvider;

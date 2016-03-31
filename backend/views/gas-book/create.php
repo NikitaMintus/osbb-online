@@ -4,13 +4,13 @@ use yii\helpers\Html;
 
 
 /* @var $this yii\web\View */
-/* @var $model backend\models\electricity\ElectricityBook */
+/* @var $model backend\models\gas\GasBook */
 
-$this->title = 'Create Electricity Book';
-$this->params['breadcrumbs'][] = ['label' => 'Electricity Books', 'url' => ['index']];
+$this->title = 'Create Gas Book';
+$this->params['breadcrumbs'][] = ['label' => 'Gas Books', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="electricity-book-create">
+<div class="gas-book-create">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
