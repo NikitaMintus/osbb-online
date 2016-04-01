@@ -1,8 +1,13 @@
 <?php
 
-namespace backend\models;
+namespace backend\models\flat;
 
+use backend\models\heating\HeatingBook;
+use backend\models\utilities\UtilitiesBook;
+use backend\models\water\WaterBook;
 use Yii;
+use backend\models\electricity\ElectricityBook;
+use backend\models\gas\GasBook;
 
 /**
  * This is the model class for table "paybook".
@@ -39,11 +44,11 @@ class Paybook extends \yii\db\ActiveRecord
         return [
             [['utilities_book_id', 'gas_book_id', 'water_book_id', 'heating_book_id', 'electric_book_id'], 'required'],
             [['utilities_book_id', 'gas_book_id', 'water_book_id', 'heating_book_id', 'electric_book_id'], 'integer'],
-            [['electric_book_id'], 'exist', 'skipOnError' => true, 'targetClass' => electricity\ElectricityBook::className(), 'targetAttribute' => ['electric_book_id' => 'electricity_book_id']],
-            [['gas_book_id'], 'exist', 'skipOnError' => true, 'targetClass' => gas\GasBook::className(), 'targetAttribute' => ['gas_book_id' => 'gas_book_id']],
-            [['heating_book_id'], 'exist', 'skipOnError' => true, 'targetClass' => heating\HeatingBook::className(), 'targetAttribute' => ['heating_book_id' => 'heating_book_id']],
-            [['utilities_book_id'], 'exist', 'skipOnError' => true, 'targetClass' => utilities\UtilitiesBook::className(), 'targetAttribute' => ['utilities_book_id' => 'utilities_book_id']],
-            [['water_book_id'], 'exist', 'skipOnError' => true, 'targetClass' => water\WaterBook::className(), 'targetAttribute' => ['water_book_id' => 'water_book_id']],
+            [['electric_book_id'], 'exist', 'skipOnError' => true, 'targetClass' => ElectricityBook::className(), 'targetAttribute' => ['electric_book_id' => 'electricity_book_id']],
+            [['gas_book_id'], 'exist', 'skipOnError' => true, 'targetClass' => GasBook::className(), 'targetAttribute' => ['gas_book_id' => 'gas_book_id']],
+            [['heating_book_id'], 'exist', 'skipOnError' => true, 'targetClass' => HeatingBook::className(), 'targetAttribute' => ['heating_book_id' => 'heating_book_id']],
+            [['utilities_book_id'], 'exist', 'skipOnError' => true, 'targetClass' => UtilitiesBook::className(), 'targetAttribute' => ['utilities_book_id' => 'utilities_book_id']],
+            [['water_book_id'], 'exist', 'skipOnError' => true, 'targetClass' => WaterBook::className(), 'targetAttribute' => ['water_book_id' => 'water_book_id']],
         ];
     }
 

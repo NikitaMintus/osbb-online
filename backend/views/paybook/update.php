@@ -3,7 +3,7 @@
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
-/* @var $model backend\models\Paybook */
+/* @var $model backend\models\flat\Paybook */
 
 $this->title = 'Update Paybook: ' . $model->paybook_id;
 $this->params['breadcrumbs'][] = ['label' => 'Paybooks', 'url' => ['index']];

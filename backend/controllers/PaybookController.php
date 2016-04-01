@@ -3,8 +3,8 @@
 namespace backend\controllers;
 
 use Yii;
-use backend\models\Paybook;
-use backend\models\PaybookSearch;
+use backend\models\flat\Paybook;
+use backend\models\flat\PaybookSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;

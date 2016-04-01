@@ -1,14 +1,14 @@
 <?php
 
-namespace backend\models;
+namespace backend\models\flat;
 
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use backend\models\Paybook;
+use backend\models\flat\Paybook;
 
 /**
- * PaybookSearch represents the model behind the search form about `backend\models\Paybook`.
+ * PaybookSearch represents the model behind the search form about `backend\models\flat\Paybook`.
  */
 class PaybookSearch extends Paybook
 {

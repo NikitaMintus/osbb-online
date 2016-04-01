@@ -4,7 +4,7 @@ use yii\helpers\Html;
 use yii\grid\GridView;
 
 /* @var $this yii\web\View */
-/* @var $searchModel backend\models\PaybookSearch */
+/* @var $searchModel backend\models\flat\PaybookSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = 'Paybooks';
