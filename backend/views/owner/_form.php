@@ -15,6 +15,8 @@ use backend\models\flat\Person;
 
     <?= $form->field($model, 'person_id')->textInput() ?>
 
+    <?= $form->field($model, 'personName')->label('fddf') ?>
+
     <?= $form->field($model, 'person_id')->dropDownList(
         \yii\helpers\ArrayHelper::map(Person::find()->all(), 'person_id','name'),
         ['prompt' => 'Select person']

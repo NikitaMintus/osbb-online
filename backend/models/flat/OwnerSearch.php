@@ -18,12 +18,16 @@ class OwnerSearch extends Owner
 
     public $personName;
     public $personSurname;
+    public $personSecondName;
+    public $personBirthday;
+    public $personIdCode;
+    public $personPlaceOfWork;
 
     public function rules()
     {
         return [
             [['owner_id'], 'integer'],
-            [['personName', 'personSurname'], 'safe'],
+            [['personName', 'personSurname', 'personSecondName', 'personBirthday', 'personIdCode', 'personPlaceOfWork'], 'safe'],
         ];
     }
 
@@ -37,32 +41,6 @@ class OwnerSearch extends Owner
     }
 
 
-    protected function addCondition($query, $attribute, $partialMatch = false)
-    {
-        if (($pos = strrpos($attribute, '.')) !== false) {
-            $modelAttribute = substr($attribute, $pos + 1);
-        } else {
-            $modelAttribute = $attribute;
-        }
-
-        $value = $this->$modelAttribute;
-        if (trim($value) === '') {
-            return;
-        }
-
-        /*
-         * Для корректной работы фильтра со связью со
-         * свой же моделью делаем:
-         */
-//        $attribute = "tbl_person.$attribute";
-//
-//        if ($partialMatch) {
-//            $query->Where(['like', $attribute, $value]);
-//        } else {
-//            $query->andWhere([$attribute => $value]);
-//        }
-    }
-
     /**
      * Creates data provider instance with search query applied
      *
@@ -74,9 +52,6 @@ class OwnerSearch extends Owner
     {
         $query = Owner::find();
 
-        // add conditions that should always apply here
-//        $query->joinWith('person', true, 'inner join');
-
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
@@ -87,13 +62,23 @@ class OwnerSearch extends Owner
                     'asc' => ['person.name' => SORT_ASC],
                     'desc' => ['person.name' => SORT_DESC],
                     'label' => 'Person Name',
-                    'default' => SORT_ASC
+                    'default' => SORT_DESC
                 ],
                 'personSurname' => [
                     'asc' => ['person.surname' => SORT_ASC],
                     'desc' => ['person.surname' => SORT_DESC],
                     'label' => 'Person  Surname'
-                ]
+                ],
+                'personSecondName' => [
+                    'asc' => ['person.second_name' => SORT_ASC],
+                    'desc' => ['person.second_name' => SORT_DESC],
+                    'label' => 'Person  SecondName'
+                ],
+                'personBirthday' => [
+                    'asc' => ['person.birthday' => SORT_ASC],
+                    'desc' => ['person.birthday' => SORT_DESC],
+                    'label' => 'Person birthday'
+                ],
             ]
         ]);
 
@@ -106,29 +91,14 @@ class OwnerSearch extends Owner
             return $dataProvider;
         }
 
-//        $this->addCondition($query, 'personName');
-//        $this->addCondition($query, 'personSurname');
-//        $this->addCondition($query, 'person_id');
-
-//        // grid filtering conditions
-//        $query->andFilterWhere([
-//            'owner_id' => $this->owner_id,
-//        ]);
-//
-//
-//        // Фильтр по стране
-//        $query->joinWith(['person' => function ($q) {
-//            $q->where('person.name LIKE "%' . $this->personName . '%"');
-//        }]);
-//
-//        $query->joinWith(['person' => function ($q) {
-//            $q->where('person.surname LIKE "%' . $this->personSurname . '%"');
-//        }]);
-
         $query->joinWith('person')->andFilterWhere([
             'and',
             ['like', 'person.name', $this->personName],
             ['like', 'person.surname', $this->personSurname],
+            ['like', 'person.second_name', $this->personSecondName],
+            ['like', 'person.birthday', $this->personBirthday],
+            ['like', 'person.id_code', $this->personIdCode],
+            ['like', 'person.place_of_work', $this->personPlaceOfWork],
         ]);
 
         return $dataProvider;

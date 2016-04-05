@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
+use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var $searchModel backend\models\flat\FlatSearch */
@@ -29,10 +30,20 @@ $this->params['breadcrumbs'][] = $this->title;
             'owner_id',
             'block',
             'floor',
-            // 'size_of_flat',
-            // 'adress',
-
+             'size_of_flat',
+             'adress',
+            [
+//                'class' => 'yii\helpers\Html',
+                'label' => 'Ссылка',
+                'format' => 'raw',
+                'value' => function($data){
+                    return Html::a('Paybook', Url::to(['paybook/view', 'id' => $data['paybook_id']]), ['class'=>'btn btn-primary'] );
+                },
+            ],
             ['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>
+
+
+    <?= Html::a('Paybook', ['/paybook/index'], ['class'=>'btn btn-primary']) ?>
 </div>

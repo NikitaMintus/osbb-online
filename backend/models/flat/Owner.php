@@ -15,6 +15,7 @@ use Yii;
  */
 class Owner extends \yii\db\ActiveRecord
 {
+    //public $personName;
     /**
      * @inheritdoc
      */
@@ -70,6 +71,26 @@ class Owner extends \yii\db\ActiveRecord
     public function getPersonSurname()
     {
         return $this->person->surname;
+    }
+
+    public function getPersonSecondName()
+    {
+        return $this->person->second_name;
+    }
+
+    public function getPersonIdCode()
+    {
+        return $this->person->id_code;
+    }
+
+    public function getPersonBirthday()
+    {
+        return $this->person->birthday;
+    }
+
+    public function getPersonPlaceOfWork()
+    {
+        return $this->person->place_of_work;
     }
 
 
