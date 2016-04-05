@@ -61,4 +61,25 @@ class Owner extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Person::className(), ['person_id' => 'person_id']);
     }
+
+    public function getPersonName()
+    {
+        return $this->person->name;
+    }
+
+    public function getPersonSurname()
+    {
+        return $this->person->surname;
+    }
+
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function  getPersons()
+    {
+        return $this->hasMany(Person::className(),['person_id' => 'person_id']);
+    }
+
+
 }
