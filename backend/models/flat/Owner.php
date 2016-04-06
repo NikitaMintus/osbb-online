@@ -78,6 +78,15 @@ class Owner extends \yii\db\ActiveRecord
         return $this->person->second_name;
     }
 
+    public function  getPersonFIO()
+    {
+        $name = $this->person->name;
+        $surname = $this->person->surname;
+        $secondName = $this->person->second_name;
+
+        return $surname . ' ' . substr($name, 0, 1) . '.' . substr($secondName, 0 ,1) . '.';
+    }
+
     public function getPersonIdCode()
     {
         return $this->person->id_code;
