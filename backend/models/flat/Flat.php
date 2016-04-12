@@ -24,6 +24,9 @@ class Flat extends \yii\db\ActiveRecord
     /**
      * @inheritdoc
      */
+
+    public $ownerPersonId;
+
     public static function tableName()
     {
         return 'flat';
@@ -50,13 +53,13 @@ class Flat extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'flat_id' => 'Flat ID',
+            'flat_id' => 'Номер квартиры',
             'paybook_id' => 'Paybook ID',
             'owner_id' => 'Owner ID',
-            'block' => 'Block',
-            'floor' => 'Floor',
-            'size_of_flat' => 'Size Of Flat',
-            'adress' => 'Adress',
+            'block' => 'Номер подъезда',
+            'floor' => 'Этаж',
+            'size_of_flat' => 'Размер квартиры',
+            'adress' => 'Адрес',
         ];
     }
 
@@ -75,6 +78,12 @@ class Flat extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Owner::className(), ['owner_id' => 'owner_id']);
     }
+
+    public function setOwner($personId)
+    {
+        $this->owner->person_id = $personId;
+    }
+
 
     /**
      * @return \yii\db\ActiveQuery

@@ -3,16 +3,16 @@
 namespace backend\controllers;
 
 use Yii;
-use backend\models\flat\Person;
-use backend\models\flat\PersonSearch;
+use backend\models\flat\Passport;
+use backend\models\PassportSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * PersonController implements the CRUD actions for Person model.
+ * PassportController implements the CRUD actions for Passport model.
  */
-class PersonController extends Controller
+class PassportController extends Controller
 {
     /**
      * @inheritdoc
@@ -30,12 +30,12 @@ class PersonController extends Controller
     }
 
     /**
-     * Lists all Person models.
+     * Lists all Passport models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new PersonSearch();
+        $searchModel = new PassportSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -45,7 +45,7 @@ class PersonController extends Controller
     }
 
     /**
-     * Displays a single Person model.
+     * Displays a single Passport model.
      * @param integer $id
      * @return mixed
      */
@@ -57,16 +57,16 @@ class PersonController extends Controller
     }
 
     /**
-     * Creates a new Person model.
+     * Creates a new Passport model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new Person();
+        $model = new Passport();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->person_id]);
+            return $this->redirect(['view', 'id' => $model->passport_id]);
         } else {
             return $this->render('create', [
                 'model' => $model,
@@ -75,7 +75,7 @@ class PersonController extends Controller
     }
 
     /**
-     * Updates an existing Person model.
+     * Updates an existing Passport model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -84,41 +84,17 @@ class PersonController extends Controller
     {
         $model = $this->findModel($id);
 
-        function mb_ucfirst($string, $enc = 'UTF-8')
-        {
-            return mb_strtoupper(mb_substr($string, 0, 1, $enc), $enc) .
-            mb_substr($string, 1, mb_strlen($string, $enc), $enc);
-        }
-
-       // $_POST['Person']['name'] = 'hg';
-
-        if($model->load(Yii::$app->request->post()))
-        {
-            $model->setAttribute('name', mb_ucfirst($model->getAttribute('name')));
-            $model->setAttribute('surname', mb_ucfirst($model->getAttribute('surname')));
-            $model->setAttribute('second_name', mb_ucfirst($model->getAttribute('second_name')));
-            if ($model->save())
-            {
-                return $this->redirect(['view', 'id' => $model->person_id]);
-            }
-            else
-            {
-                return $this->render('update', [
-                    'model' => $model,
-                ]);
-            }
-        }
-        else
-        {
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['view', 'id' => $model->passport_id]);
+        } else {
             return $this->render('update', [
                 'model' => $model,
             ]);
         }
-
     }
 
     /**
-     * Deletes an existing Person model.
+     * Deletes an existing Passport model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -131,15 +107,15 @@ class PersonController extends Controller
     }
 
     /**
-     * Finds the Person model based on its primary key value.
+     * Finds the Passport model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return Person the loaded model
+     * @return Passport the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Person::findOne($id)) !== null) {
+        if (($model = Passport::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');

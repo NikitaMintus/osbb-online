@@ -24,6 +24,9 @@ class Person extends \yii\db\ActiveRecord
     /**
      * @inheritdoc
      */
+    public $passport1;
+
+
     public static function tableName()
     {
         return 'person';
@@ -61,6 +64,19 @@ class Person extends \yii\db\ActiveRecord
     }
 
     /**
+     * @return string
+     */
+    public function getPersonFullName()
+    {
+        return ucfirst($this->surname) . ' ' . ucfirst($this->name) . ' ' . ucfirst($this->second_name);
+    }
+
+    public function getPersonFIO()
+    {
+        return ucfirst($this->surname) . ' ' . strtoupper(mb_substr($this->name, 0, 1)) . '. ' . strtoupper(mb_substr($this->second_name, 0, 1)) . '.';
+    }
+
+    /**
      * @return \yii\db\ActiveQuery
      */
     public function getCatalogOfDomiciles()
@@ -68,11 +84,23 @@ class Person extends \yii\db\ActiveRecord
         return $this->hasMany(CatalogOfDomicile::className(), ['person_id' => 'person_id']);
     }
 
+
     /**
      * @return \yii\db\ActiveQuery
      */
     public function getOwners()
     {
         return $this->hasMany(Owner::className(), ['person_id' => 'person_id']);
+    }
+
+    public function getPassport()
+    {
+       return $this->passport1 = $this->hasOne(Passport::className(), ['passport_id' => 'passport_id']);
+
+    }
+
+    public function getPassportData()
+    {
+        return $this->passport1->number_of_passport;
     }
 }

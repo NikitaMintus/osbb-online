@@ -4,20 +4,19 @@ use yii\helpers\Html;
 use yii\grid\GridView;
 
 /* @var $this yii\web\View */
-/* @var $searchModel backend\models\flat\PaybookSearch */
+/* @var $searchModel backend\models\PassportSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Paybooks';
-$this->params['breadcrumbs'][] = ['label' => 'Flat', 'url' => ['flat/index']];
+$this->title = 'Passports';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="paybook-index">
+<div class="passport-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Create Paybook', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Create Passport', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
@@ -25,12 +24,11 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'paybook_id',
-            'utilities_book_id',
-            'gas_book_id',
-            'water_book_id',
-            'heating_book_id',
-            // 'electric_book_id',
+            'passport_id',
+            'series_number_of_passport',
+            'number_of_passport',
+            'issued_by',
+            'issued_date',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

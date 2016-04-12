@@ -7,6 +7,7 @@ use yii\helpers\Html;
 /* @var $model backend\models\flat\Owner */
 
 $this->title = 'Create Owner';
+$this->params['breadcrumbs'][] = ['label' => 'Flat', 'url' => ['flat/index']];
 $this->params['breadcrumbs'][] = ['label' => 'Owners', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>

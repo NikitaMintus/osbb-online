@@ -28,6 +28,7 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
             'flat_id',
             [
+                'attribute' => 'owner_id',
                 'label' => 'Owner',
                 'format' => 'raw',
                 'value' => function($data){
@@ -47,8 +48,8 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             'block',
             'floor',
-             'size_of_flat',
-             'adress',
+            'size_of_flat',
+            'adress',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

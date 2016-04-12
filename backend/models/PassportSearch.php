@@ -1,16 +1,16 @@
 <?php
 
-namespace backend\models\flat;
+namespace backend\models;
 
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use backend\models\flat\Flat;
+use backend\models\flat\Passport;
 
 /**
- * FlatSearch represents the model behind the search form about `backend\models\flat\Flat`.
+ * PassportSearch represents the model behind the search form about `backend\models\flat\Passport`.
  */
-class FlatSearch extends Flat
+class PassportSearch extends Passport
 {
     /**
      * @inheritdoc
@@ -18,9 +18,8 @@ class FlatSearch extends Flat
     public function rules()
     {
         return [
-            [['flat_id', 'paybook_id', 'block', 'floor'], 'integer'],
-            [['size_of_flat'], 'number'],
-            [['adress', 'owner_id'], 'safe'],
+            [['passport_id'], 'integer'],
+            [['series_number_of_passport', 'number_of_passport', 'issued_by', 'issued_date'], 'safe'],
         ];
     }
 
@@ -42,7 +41,7 @@ class FlatSearch extends Flat
      */
     public function search($params)
     {
-        $query = Flat::find();
+        $query = Passport::find();
 
         // add conditions that should always apply here
 
@@ -60,15 +59,13 @@ class FlatSearch extends Flat
 
         // grid filtering conditions
         $query->andFilterWhere([
-            'flat_id' => $this->flat_id,
-            'paybook_id' => $this->paybook_id,
-            'owner_id' => $this->owner_id,
-            'block' => $this->block,
-            'floor' => $this->floor,
-            'size_of_flat' => $this->size_of_flat,
+            'passport_id' => $this->passport_id,
+            'issued_date' => $this->issued_date,
         ]);
 
-        $query->andFilterWhere(['like', 'adress', $this->adress]);
+        $query->andFilterWhere(['like', 'series_number_of_passport', $this->series_number_of_passport])
+            ->andFilterWhere(['like', 'number_of_passport', $this->number_of_passport])
+            ->andFilterWhere(['like', 'issued_by', $this->issued_by]);
 
         return $dataProvider;
     }

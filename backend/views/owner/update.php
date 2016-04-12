@@ -6,6 +6,7 @@ use yii\helpers\Html;
 /* @var $model backend\models\flat\Owner */
 
 $this->title = 'Update Owner: ' . $model->owner_id;
+$this->params['breadcrumbs'][] = ['label' => 'Flat', 'url' => ['flat/index']];
 $this->params['breadcrumbs'][] = ['label' => 'Owners', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->owner_id, 'url' => ['view', 'id' => $model->owner_id]];
 $this->params['breadcrumbs'][] = 'Update';

@@ -13,14 +13,24 @@ use backend\models\flat\Person;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'person_id')->textInput() ?>
-
-    <?= $form->field($model, 'personName')->label('fddf') ?>
+<!--    --><?//= $form->field($model, 'person_id')->textInput() ?>
 
     <?= $form->field($model, 'person_id')->dropDownList(
-        \yii\helpers\ArrayHelper::map(Person::find()->all(), 'person_id','name'),
+        \yii\helpers\ArrayHelper::map(Person::find()->all(), 'person_id', 'personFullName'),
         ['prompt' => 'Select person']
     ) ?>
+
+    <?= $form->field($model, 'personBirthday') ?>
+
+    <?= $form->field($model, 'personPlaceOfWork')->label('Surname') ?>
+
+    <?= $form->field($model, 'personIdCode')->label('Surname') ?>
+
+    <?= $form->field($model, 'personPassportData')?>
+
+    <?= $form->field($model, 'personPassportIssuedBy')?>
+
+    <?= $form->field($model, 'personPassportIssuedDate')?>
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>

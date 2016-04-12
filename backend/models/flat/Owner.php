@@ -15,7 +15,7 @@ use Yii;
  */
 class Owner extends \yii\db\ActiveRecord
 {
-    //public $personName;
+    public $personPassport1;
     /**
      * @inheritdoc
      */
@@ -65,6 +65,7 @@ class Owner extends \yii\db\ActiveRecord
 
     public function getPersonName()
     {
+        $probaView = $this->person->name;
         return $this->person->name;
     }
 
@@ -84,7 +85,7 @@ class Owner extends \yii\db\ActiveRecord
         $surname = $this->person->surname;
         $secondName = $this->person->second_name;
 
-        return $surname . ' ' . substr($name, 0, 1) . '.' . substr($secondName, 0 ,1) . '.';
+        return $surname . ' ' . mb_substr($name, 0, 1) . '.' . mb_substr($secondName, 0 ,1) . '.';
     }
 
     public function getPersonIdCode()
@@ -102,6 +103,25 @@ class Owner extends \yii\db\ActiveRecord
         return $this->person->place_of_work;
     }
 
+    public function getPersonPassport()
+    {
+        return $this->person->passport;
+    }
+
+    public function getPersonPassportData()
+    {
+        return $this->getPersonPassport()->series_number_of_passport . ' ' .$this->getPersonPassport()->number_of_passport;
+    }
+
+    public function getPersonPassportIssuedBy()
+    {
+        return $this->getPersonPassport()->issued_by;
+    }
+
+    public function getPersonPassportIssuedDate()
+    {
+        return $this->getPersonPassport()->issued_date;
+    }
 
     /**
      * @return \yii\db\ActiveQuery

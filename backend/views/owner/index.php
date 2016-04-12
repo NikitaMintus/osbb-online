@@ -10,6 +10,7 @@ use backend\models\flat\Owner;
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = 'Owners';
+$this->params['breadcrumbs'][] = ['label' => 'Flat', 'url' => ['flat/index']];
 $this->params['breadcrumbs'][] = $this->title;
 
 //$owner = Owner::find();
@@ -43,7 +44,15 @@ $this->params['breadcrumbs'][] = $this->title;
             'personSecondName',
             'personBirthday',
             'personIdCode',
-            'personPlaceOfWork',
+            [
+                'value' => 'personPlaceOfWork',
+                'label' => 'Workplace',
+            ],
+            [
+                'value' => 'personPassport.numberSeriesOfPassport',
+                'label' => 'Passport',
+            ],
+
 //            [
 //                'attribute' => 'person_id',
 //                'value' => 'person.name',

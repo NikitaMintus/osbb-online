@@ -10,13 +10,17 @@ use yii\widgets\ActiveForm;
 
 <div class="flat-form">
 
+
+
     <?php $form = ActiveForm::begin(); ?>
 
     <?= $form->field($model, 'flat_id')->textInput() ?>
 
-    <?= $form->field($model, 'paybook_id')->textInput() ?>
+<!--    --><?//= $form->field($model, 'paybook_id')->textInput() ?>
 
-    <?= $form->field($model, 'owner_id')->textInput() ?>
+<!--    --><?//= $form->field($model->owner, 'person_id')->dropDownList(\yii\helpers\ArrayHelper::map(\backend\models\flat\Person::find()->all(), 'person_id', 'surname' ))?>
+
+    <?= $form->field($model, 'owner_id')->dropDownList(\yii\helpers\ArrayHelper::map(\backend\models\flat\Owner::find()->all(), 'owner_id', 'person.name' ))?>
 
     <?= $form->field($model, 'block')->textInput() ?>
 

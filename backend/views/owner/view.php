@@ -7,6 +7,7 @@ use yii\widgets\DetailView;
 /* @var $model backend\models\flat\Owner */
 
 $this->title = $model->owner_id;
+$this->params['breadcrumbs'][] = ['label' => 'Flat', 'url' => ['flat/index']];
 $this->params['breadcrumbs'][] = ['label' => 'Owners', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
@@ -29,7 +30,11 @@ $this->params['breadcrumbs'][] = $this->title;
         'model' => $model,
         'attributes' => [
             'owner_id',
-            'person_id',
+            'personFIO',
+            'personBirthday',
+            'personPlaceOfWork',
+            'personIdCode',
+            'personPassportData',
         ],
     ]) ?>
 

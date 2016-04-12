@@ -5,7 +5,7 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model backend\models\flat\Person */
 
-$this->title = 'Update Person: ' . $model->name;
+$this->title = 'Update: ' . $model->getPersonFIO();
 $this->params['breadcrumbs'][] = ['label' => 'People', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->name, 'url' => ['view', 'id' => $model->person_id]];
 $this->params['breadcrumbs'][] = 'Update';
