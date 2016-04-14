@@ -20,6 +20,12 @@ return [
                 ],
             ],
         ],
+        'user' => [
+            'class' => 'yii\web\User',
+            'identityClass' => 'common\models\User',
+            'enableAutoLogin' => false,
+            'enableSession' => false,
+        ]
     ],
     'params' => $params,
 ];
