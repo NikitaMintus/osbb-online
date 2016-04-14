@@ -2,6 +2,8 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
+use dosamigos\datepicker\DatePicker;
+use yii\widgets\Pjax;
 
 /* @var $this yii\web\View */
 /* @var $searchModel backend\models\flat\PersonSearch */
@@ -18,17 +20,34 @@ $this->params['breadcrumbs'][] = $this->title;
     <p>
         <?= Html::a('Create Person', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
+    <? Pjax::begin(); ?>
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-
-            'person_id',
+//            'person_id',
             'name',
-            'surname',
+            [
+                'attribute' => 'surname',
+                'value' => 'surname',
+                'contentOptions'=>['style' => 'max-width: 400px'],
+            ],
             'second_name',
-            'birthday',
+            [
+                'attribute' => 'birthday',
+                'value' => 'birthday',
+                'format' => 'raw',
+                'contentOptions'=>['style' => 'width: 200px'],
+                'filter' => DatePicker::widget([
+                                'model' => $searchModel,
+                                'attribute' => 'birthday',
+                                    'clientOptions' => [
+                                        'autoclose' => true,
+                                        'format' => 'yyyy-m-d'
+                                    ],
+                            ]),
+            ],
             // 'id_code',
             // 'passport_id',
             // 'place_of_work',
@@ -36,4 +55,5 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>
+    <? Pjax::end(); ?>
 </div>
