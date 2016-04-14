@@ -10,7 +10,7 @@ use dosamigos\datepicker\DatePicker;
 
 <div class="person-form">
 
-    <?php $form = ActiveForm::begin(); ?>
+    <?php $form = ActiveForm::begin(['enableAjaxValidation' => true]); ?>
 
     <?= $form->field($model, 'surname')->textInput(['maxlength' => true]) ?>
 

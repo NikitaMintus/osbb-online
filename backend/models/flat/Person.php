@@ -38,12 +38,24 @@ class Person extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name', 'surname', 'second_name', 'birthday', 'id_code', 'passport_id', 'place_of_work'], 'required'],
-            [['birthday'], 'safe'],
-            [['id_code', 'passport_id'], 'integer'],
+            [['name', 'surname', 'second_name', 'birthday', 'id_code', 'passport_id', 'place_of_work'], 'required', 'message' => 'Это поле не может быть пустым'],
+            [['birthday'], 'safe', 'message' => 'Это поле не может быть пустым'],
+            ['birthday', 'checkDate'],
+            [['id_code', 'passport_id'], 'integer', 'message' => 'Это поле должно содержать только цифры'],
             [['name', 'surname', 'second_name'], 'string', 'max' => 100],
             [['place_of_work'], 'string', 'max' => 255],
         ];
+    }
+
+
+    public function checkDate($attribute, $params)
+    {
+        $today = date('Y-m-d');
+        $currentDate = date($this->birthday);
+        if($currentDate > $today)
+        {
+            $this->addError($attribute, 'Дата рождения должна быть меньше текущей даты');
+        }
     }
 
     /**

@@ -9,6 +9,7 @@ use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\widgets\ActiveForm;
 
 /**
  * PersonController implements the CRUD actions for Person model.
@@ -75,6 +76,12 @@ class PersonController extends Controller
     {
         $model = new Person();
 
+        if(Yii::$app->request->isAjax && $model->load($_POST))
+        {
+            Yii::$app->response->format = 'json';
+            return ActiveForm::validate($model);
+        }
+
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->person_id]);
         } else {
@@ -101,6 +108,11 @@ class PersonController extends Controller
         }
 
        // $_POST['Person']['name'] = 'hg';
+        if(Yii::$app->request->isAjax && $model->load($_POST))
+        {
+            Yii::$app->response->format = 'json';
+            return ActiveForm::validate($model);
+        }
 
         if($model->load(Yii::$app->request->post()))
         {
