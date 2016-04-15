@@ -79,10 +79,10 @@ class Flat extends \yii\db\ActiveRecord
         return $this->hasOne(Owner::className(), ['owner_id' => 'owner_id']);
     }
 
-    public function setOwner($personId)
-    {
-        $this->owner->person_id = $personId;
-    }
+//    public function setOwner($personId)
+//    {
+//        $this->owner->person_id = $personId;
+//    }
 
 
     /**

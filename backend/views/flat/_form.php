@@ -2,6 +2,8 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use backend\models\flat\Person;
+
 
 /* @var $this yii\web\View */
 /* @var $model backend\models\flat\Flat */
@@ -16,11 +18,16 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'flat_id')->textInput() ?>
 
-<!--    --><?//= $form->field($model, 'paybook_id')->textInput() ?>
+<!--    --><?//= $form->field($model, 'owner_id')->textInput() ?>
 
-<!--    --><?//= $form->field($model->owner, 'person_id')->dropDownList(\yii\helpers\ArrayHelper::map(\backend\models\flat\Person::find()->all(), 'person_id', 'surname' ))?>
+<!--    --><?//= $form->field($owner, 'person_id')->textInput() ?>
 
-    <?= $form->field($model, 'owner_id')->dropDownList(\yii\helpers\ArrayHelper::map(\backend\models\flat\Owner::find()->all(), 'owner_id', 'person.name' ))?>
+    <?= $form->field($owner, 'person_id')->dropDownList(
+        \yii\helpers\ArrayHelper::map(Person::find()->all(), 'person_id', 'personFullName'),
+        ['prompt' => 'Select person']
+    ) ?>
+
+    <?= $form->field($model, 'paybook_id')->textInput() ?>
 
     <?= $form->field($model, 'block')->textInput() ?>
 
