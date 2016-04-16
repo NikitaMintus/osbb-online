@@ -9,6 +9,7 @@ use yii\grid\GridView;
 
 $this->title = 'Electricity Invoices';
 $this->params['breadcrumbs'][] = $this->title;
+
 ?>
 <div class="electricity-invoice-index">
 

@@ -8,10 +8,18 @@ $params = array_merge(
 
 return [
     'id' => 'app-frontend',
+    'name' => 'Osbb-online',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
     'controllerNamespace' => 'frontend\controllers',
     'components' => [
+        'view' => [
+            'theme' => [
+                'pathMap' => [
+                    '@app/views' => '@app/views/yii2-advanced-app'
+                ],
+            ],
+        ],
         'user' => [
             'identityClass' => 'common\models\User',
             'enableAutoLogin' => true,

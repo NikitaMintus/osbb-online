@@ -14,6 +14,7 @@ use yii\filters\VerbFilter;
 /**
  * FlatController implements the CRUD actions for Flat model.
  */
+
 class FlatController extends Controller
 {
     /**
@@ -103,6 +104,7 @@ class FlatController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+
         $owner = $model->owner;
 
         if ($model->load(Yii::$app->request->post()) && $owner->load(Yii::$app->request->post())) {

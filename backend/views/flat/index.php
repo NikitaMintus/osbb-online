@@ -42,7 +42,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'contentOptions' => ['style' => 'width:150px;'],
                 'format' => 'raw',
                 'value' => function($data){
-                    return Html::a('Paybook', Url::to(['paybook/view', 'id' => $data['paybook_id']]), ['class'=>'btn btn-primary'] );
+                    return Html::a('Paybook', Url::to(['paybook/view', 'id' => $data['paybook_id'], 'pid' => 1]), ['class'=>'btn btn-primary'] );
                 },
                 'contentOptions'=>['style' => 'width: 150px; text-align: center'],
             ],

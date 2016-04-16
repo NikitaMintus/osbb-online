@@ -2,9 +2,11 @@
 
 namespace backend\controllers;
 
+use backend\models\utilities\UtilitiesPerk;
 use Yii;
 use backend\models\utilities\UtilitiesBook;
 use backend\models\utilities\UtilitiesBookSearch;
+use yii\data\ActiveDataProvider;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -45,12 +47,15 @@ class UtilitiesBookController extends Controller
      */
     public function actionIndex()
     {
-        $searchModel = new UtilitiesBookSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+//        $searchModel = new UtilitiesBookSearch();
+//        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider2 = new ActiveDataProvider([
+            'query' => UtilitiesBook::find()->with('utilitiesInvoice'),
+        ]);
 
         return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
+//            'searchModel' => $searchModel,
+            'dataProvider2' => $dataProvider2,
         ]);
     }
 

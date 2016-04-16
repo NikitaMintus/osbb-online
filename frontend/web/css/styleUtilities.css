@@ -1,0 +1,20 @@
+.electric-receipt {
+  border: 2px solid #4b5368;
+  width: 100%;
+  border-collapse: collapse;
+  margin:20px 0;
+}
+
+.electric-receipt td {
+  border: 2px solid #4b5368;
+  text-align: center;
+  padding: 5px 5px;
+  max-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.utilities-book-index .form-control {
+  width: auto;
+}
