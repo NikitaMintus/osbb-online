@@ -13,6 +13,12 @@ class SignupForm extends Model
     public $username;
     public $email;
     public $password;
+    public $fio;
+    public $birthday;
+    public $id_code;
+    public $passport;
+    public $place_of_work;
+    public $flat_id;
 
     /**
      * @inheritdoc
@@ -20,7 +26,7 @@ class SignupForm extends Model
     public function rules()
     {
         return [
-            ['username', 'filter', 'filter' => 'trim'],
+            [['username', 'fio', 'birthday', 'id_code', 'passport', 'place_of_work', 'flat_id'], 'filter', 'filter' => 'trim'],
             ['username', 'required'],
             ['username', 'unique', 'targetClass' => '\common\models\User', 'message' => 'This username has already been taken.'],
             ['username', 'string', 'min' => 2, 'max' => 255],
@@ -52,6 +58,13 @@ class SignupForm extends Model
         $user->email = $this->email;
         $user->setPassword($this->password);
         $user->generateAuthKey();
+        $user->fio = $this->fio;
+        $user->passport = $this->passport;
+        $user->id_code = $this->id_code;
+        $user->place_of_work = $this->place_of_work;
+        $user->birthday = $this->birthday;
+        $user->flat_id = $this->flat_id;
+
         
         return $user->save() ? $user : null;
     }

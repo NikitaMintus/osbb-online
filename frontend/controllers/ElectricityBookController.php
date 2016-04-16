@@ -9,6 +9,7 @@
 namespace frontend\controllers;
 
 
+use backend\models\flat\Flat;
 use yii\web\Controller;
 use Yii;
 use yii\data\ActiveDataProvider;
@@ -41,6 +42,7 @@ class ElectricityBookController extends Controller
     public function actionPayment()
     {
         $userID = Yii::$app->user->getId();
+        $flat = Flat::findOne(Yii::$app->user->flat_id);
         $newData = new ElectricityBook();
         $model = ElectricityBook::findOne($userID);
 
@@ -52,6 +54,7 @@ class ElectricityBookController extends Controller
             return $this->render('payment', [
                 'model' => $model,
                 'newData' => $newData,
+                'flat' => $flat,
             ]);
         }
     }

@@ -1,25 +1,33 @@
 <?php
+
 namespace common\models;
 
 use Yii;
 use yii\base\NotSupportedException;
-use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
 use yii\web\IdentityInterface;
+use backend\models\flat\Flat;
 
 /**
- * User model
+ * This is the model class for table "user".
  *
  * @property integer $id
  * @property string $username
+ * @property string $auth_key
  * @property string $password_hash
  * @property string $password_reset_token
  * @property string $email
- * @property string $auth_key
  * @property integer $status
  * @property integer $created_at
  * @property integer $updated_at
- * @property string $password write-only password
+ * @property string $fio
+ * @property string $birthday
+ * @property integer $id_code
+ * @property string $passport
+ * @property string $place_of_work
+ * @property integer $flat_id
+ *
+ * @property Flat $flat
  */
 class User extends ActiveRecord implements IdentityInterface
 {
@@ -34,15 +42,7 @@ class User extends ActiveRecord implements IdentityInterface
         return '{{%user}}';
     }
 
-    /**
-     * @inheritdoc
-     */
-    public function behaviors()
-    {
-        return [
-            TimestampBehavior::className(),
-        ];
-    }
+
 
     /**
      * @inheritdoc
@@ -50,6 +50,15 @@ class User extends ActiveRecord implements IdentityInterface
     public function rules()
     {
         return [
+            [['username', 'auth_key', 'password_hash', 'email', 'created_at', 'updated_at', 'fio', 'birthday', 'id_code', 'passport', 'place_of_work'], 'required'],
+            [['status', 'created_at', 'updated_at', 'id_code', 'flat_id'], 'integer'],
+            [['birthday'], 'safe'],
+            [['username', 'password_hash', 'password_reset_token', 'email', 'fio', 'passport', 'place_of_work'], 'string', 'max' => 255],
+            [['auth_key'], 'string', 'max' => 32],
+            [['username'], 'unique'],
+            [['email'], 'unique'],
+            [['password_reset_token'], 'unique'],
+            [['flat_id'], 'exist', 'skipOnError' => true, 'targetClass' => Flat::className(), 'targetAttribute' => ['flat_id' => 'flat_id']],
             ['status', 'default', 'value' => self::STATUS_ACTIVE],
             ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_DELETED]],
         ];
@@ -184,5 +193,37 @@ class User extends ActiveRecord implements IdentityInterface
     public function removePasswordResetToken()
     {
         $this->password_reset_token = null;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function attributeLabels()
+    {
+        return [
+            'id' => 'ID',
+            'username' => 'Username',
+            'auth_key' => 'Auth Key',
+            'password_hash' => 'Password Hash',
+            'password_reset_token' => 'Password Reset Token',
+            'email' => 'Email',
+            'status' => 'Status',
+            'created_at' => 'Created At',
+            'updated_at' => 'Updated At',
+            'fio' => 'Fio',
+            'birthday' => 'Birthday',
+            'id_code' => 'Id Code',
+            'passport' => 'Passport',
+            'place_of_work' => 'Place Of Work',
+            'flat_id' => 'Flat ID',
+        ];
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getFlat()
+    {
+        return $this->hasOne(Flat::className(), ['flat_id' => 'flat_id']);
     }
 }
