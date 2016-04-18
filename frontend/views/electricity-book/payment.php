@@ -24,12 +24,17 @@ $this->params['breadcrumbs'][] = $this->title;
 
                 <?php $form = ActiveForm::begin(); ?>
 
-                <?= $form->field($model, 'electricity_rate_id')->label('ФИО');   ?>
+<!--                --><?//= $form->field($model, 'electricity_rate_id')->label('ФИО');   ?>
 
-                <label for="adress">Адрес</label>
-                <?= $model->electricityPerk->dec_perk; ?>
-                <?= $flat->paybook->gas_book_id; ?>
-                <input type="text" name="adress" placeholder="Адрес">
+
+                <p>ФИО: <?= Html::encode($user->fio) ?></p>
+                <p>Адрес: <?= Html::encode($user->flat->adress) ?></p>
+<!--                --><?//= $model->electricityPerk->dec_perk; ?>
+
+
+<!--                --><?//= $flat->paybook->gas_book_id; ?>
+<!--                <input type="text" name="adress" placeholder="Адрес">-->
+<!--                <p>Адрес: --><?//= Html::encode($user->flat->paybook->electricBook->electricityInvoice->dec_counter_previous) ?><!--</p>-->
 
                 <table border="1" class="electric-receipt">
                     <thead>
@@ -39,7 +44,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     <tr>
                         <td>Предыдущие</td>
                         <td colspan="5">
-                            <input type="text" name="previous_value" placeholder="Предыдущие показатели">
+                            <input type="text" name="previous_value" placeholder="Предыдущие показатели" value="<?= Html::encode($user->flat->paybook->electricBook->electricityInvoice->dec_counter_previous) ?>" readonly>
                         </td>
                     </tr>
                     <tr>
