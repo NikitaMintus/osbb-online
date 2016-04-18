@@ -8,14 +8,16 @@ use Yii;
  * This is the model class for table "utilitiesBook".
  *
  * @property integer $utilities_book_id
- * @property integer $utlities_rate_id
- * @property integer $utilities_invoice_id
- * @property integer $utilities_perk_id
+ * @property integer $int_utilities_personal_code
+ * @property string $dec_utlities_rate
+ * @property string $utilities_rate_date_of_filling
+ * @property string $dec_utilities_perk
+ * @property string $utilities_perk_date_of_filling
+ * @property string $dec_utilities_size_of_flat
+ * @property string $utilities_date_of_last_payment
  *
- * @property Paybook[] $paybooks
- * @property UtilitiesInvoice $utilitiesInvoice
- * @property UtilitiesPerk $utilitiesPerk
- * @property UtilitiesRate $utlitiesRate
+ * @property Paybook $paybook
+ * @property UtilitiesInvoice[] $utilitiesInvoices
  */
 class UtilitiesBook extends \yii\db\ActiveRecord
 {
@@ -33,11 +35,10 @@ class UtilitiesBook extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['utlities_rate_id', 'utilities_invoice_id', 'utilities_perk_id'], 'required'],
-            [['utlities_rate_id', 'utilities_invoice_id', 'utilities_perk_id'], 'integer'],
-            [['utilities_invoice_id'], 'exist', 'skipOnError' => true, 'targetClass' => UtilitiesInvoice::className(), 'targetAttribute' => ['utilities_invoice_id' => 'utilities_invoice_id']],
-            [['utilities_perk_id'], 'exist', 'skipOnError' => true, 'targetClass' => UtilitiesPerk::className(), 'targetAttribute' => ['utilities_perk_id' => 'utilities_perk_id']],
-            [['utlities_rate_id'], 'exist', 'skipOnError' => true, 'targetClass' => UtilitiesRate::className(), 'targetAttribute' => ['utlities_rate_id' => 'utilities_rate_id']],
+            [['int_utilities_personal_code', 'dec_utlities_rate', 'utilities_rate_date_of_filling', 'dec_utilities_perk', 'utilities_perk_date_of_filling', 'dec_utilities_size_of_flat', 'utilities_date_of_last_payment'], 'required'],
+            [['int_utilities_personal_code'], 'integer'],
+            [['dec_utlities_rate', 'dec_utilities_perk', 'dec_utilities_size_of_flat'], 'number'],
+            [['utilities_rate_date_of_filling', 'utilities_perk_date_of_filling', 'utilities_date_of_last_payment'], 'safe'],
         ];
     }
 
@@ -48,41 +49,29 @@ class UtilitiesBook extends \yii\db\ActiveRecord
     {
         return [
             'utilities_book_id' => 'Utilities Book ID',
-            'utlities_rate_id' => 'Utlities Rate ID',
-            'utilities_invoice_id' => 'Utilities Invoice ID',
-            'utilities_perk_id' => 'Utilities Perk ID',
+            'int_utilities_personal_code' => 'Int Utilities Personal Code',
+            'dec_utlities_rate' => 'Dec Utlities Rate',
+            'utilities_rate_date_of_filling' => 'Utilities Rate Date Of Filling',
+            'dec_utilities_perk' => 'Dec Utilities Perk',
+            'utilities_perk_date_of_filling' => 'Utilities Perk Date Of Filling',
+            'dec_utilities_size_of_flat' => 'Dec Utilities Size Of Flat',
+            'utilities_date_of_last_payment' => 'Utilities Date Of Last Payment',
         ];
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getPaybooks()
+    public function getPaybook()
     {
-        return $this->hasMany(Paybook::className(), ['utilities_book_id' => 'utilities_book_id']);
+        return $this->hasOne(Paybook::className(), ['utilities_book_id' => 'utilities_book_id']);
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getUtilitiesInvoice()
+    public function getUtilitiesInvoices()
     {
-        return $this->hasOne(UtilitiesInvoice::className(), ['utilities_invoice_id' => 'utilities_invoice_id']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getUtilitiesPerk()
-    {
-        return $this->hasOne(UtilitiesPerk::className(), ['utilities_perk_id' => 'utilities_perk_id']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getUtlitiesRate()
-    {
-        return $this->hasOne(UtilitiesRate::className(), ['utilities_rate_id' => 'utlities_rate_id']);
+        return $this->hasMany(UtilitiesInvoice::className(), ['utilities_book_id' => 'utilities_book_id']);
     }
 }

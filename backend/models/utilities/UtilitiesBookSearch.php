@@ -18,7 +18,9 @@ class UtilitiesBookSearch extends UtilitiesBook
     public function rules()
     {
         return [
-            [['utilities_book_id', 'utlities_rate_id', 'utilities_invoice_id', 'utilities_perk_id'], 'integer'],
+            [['utilities_book_id', 'int_utilities_personal_code'], 'integer'],
+            [['dec_utlities_rate', 'dec_utilities_perk', 'dec_utilities_size_of_flat'], 'number'],
+            [['utilities_rate_date_of_filling', 'utilities_perk_date_of_filling', 'utilities_date_of_last_payment'], 'safe'],
         ];
     }
 
@@ -59,9 +61,13 @@ class UtilitiesBookSearch extends UtilitiesBook
         // grid filtering conditions
         $query->andFilterWhere([
             'utilities_book_id' => $this->utilities_book_id,
-            'utlities_rate_id' => $this->utlities_rate_id,
-            'utilities_invoice_id' => $this->utilities_invoice_id,
-            'utilities_perk_id' => $this->utilities_perk_id,
+            'int_utilities_personal_code' => $this->int_utilities_personal_code,
+            'dec_utlities_rate' => $this->dec_utlities_rate,
+            'utilities_rate_date_of_filling' => $this->utilities_rate_date_of_filling,
+            'dec_utilities_perk' => $this->dec_utilities_perk,
+            'utilities_perk_date_of_filling' => $this->utilities_perk_date_of_filling,
+            'dec_utilities_size_of_flat' => $this->dec_utilities_size_of_flat,
+            'utilities_date_of_last_payment' => $this->utilities_date_of_last_payment,
         ]);
 
         return $dataProvider;

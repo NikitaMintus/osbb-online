@@ -18,23 +18,22 @@ $this->params['breadcrumbs'][] = $this->title;
     <p>
         <?= Html::a('Create Utilities Book', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
-    <? $models = $dataProvider2->getModels(); ?>
     <?= GridView::widget([
-        'dataProvider' => $dataProvider2,
+        'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-            'utilities_book_id',
-            'utlities_rate_id',
-            'utilities_invoice_id',
-            'utilities_perk_id',
-            'utilitiesInvoice.dec_total',
-            'utilitiesInvoice.utilities_rate_id',
-            ['class' => 'yii\grid\ActionColumn'],
 
+            'utilities_book_id',
+            'int_utilities_personal_code',
+            'dec_utlities_rate',
+            'utilities_rate_date_of_filling',
+            'dec_utilities_perk',
+            // 'utilities_perk_date_of_filling',
+            // 'dec_utilities_size_of_flat',
+            // 'utilities_date_of_last_payment',
+
+            ['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>
-
-    <?= Html::a('', ['create'], ['class' => 'btn btn-success'])?>
-
 </div>

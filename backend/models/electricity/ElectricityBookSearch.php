@@ -8,7 +8,7 @@ use yii\data\ActiveDataProvider;
 use backend\models\electricity\ElectricityBook;
 
 /**
- * ElectricityBookSearch represents the model behind the search form about `backend\models\ElectricityBook`.
+ * ElectricityBookSearch represents the model behind the search form about `backend\models\electricity\ElectricityBook`.
  */
 class ElectricityBookSearch extends ElectricityBook
 {
@@ -18,7 +18,9 @@ class ElectricityBookSearch extends ElectricityBook
     public function rules()
     {
         return [
-            [['electricity_book_id', 'int_number_of_contract', 'electricity_rate_id', 'electricity_perk_id', 'electricity_invoice_id'], 'integer'],
+            [['electricity_book_id', 'int_number_of_personal_code', 'int_rate_block1_limit', 'int_rate_block2_limit', 'int_rate_block3_limit', 'dec_electric_perk_limit'], 'integer'],
+            [['dec_rate_block1', 'dec_rate_block2', 'dec_rate_block3', 'dec_electric_perk'], 'number'],
+            [['electric_rate_date_of_filling', 'electric_perk_date_of_filling', 'electric_date_of_last_payment'], 'safe'],
         ];
     }
 
@@ -59,10 +61,18 @@ class ElectricityBookSearch extends ElectricityBook
         // grid filtering conditions
         $query->andFilterWhere([
             'electricity_book_id' => $this->electricity_book_id,
-            'int_number_of_contract' => $this->int_number_of_contract,
-            'electricity_rate_id' => $this->electricity_rate_id,
-            'electricity_perk_id' => $this->electricity_perk_id,
-            'electricity_invoice_id' => $this->electricity_invoice_id,
+            'int_number_of_personal_code' => $this->int_number_of_personal_code,
+            'dec_rate_block1' => $this->dec_rate_block1,
+            'int_rate_block1_limit' => $this->int_rate_block1_limit,
+            'dec_rate_block2' => $this->dec_rate_block2,
+            'int_rate_block2_limit' => $this->int_rate_block2_limit,
+            'dec_rate_block3' => $this->dec_rate_block3,
+            'int_rate_block3_limit' => $this->int_rate_block3_limit,
+            'dec_electric_perk' => $this->dec_electric_perk,
+            'dec_electric_perk_limit' => $this->dec_electric_perk_limit,
+            'electric_rate_date_of_filling' => $this->electric_rate_date_of_filling,
+            'electric_perk_date_of_filling' => $this->electric_perk_date_of_filling,
+            'electric_date_of_last_payment' => $this->electric_date_of_last_payment,
         ]);
 
         return $dataProvider;

@@ -17,11 +17,19 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'utilities_book_id') ?>
 
-    <?= $form->field($model, 'utlities_rate_id') ?>
+    <?= $form->field($model, 'int_utilities_personal_code') ?>
 
-    <?= $form->field($model, 'utilities_invoice_id') ?>
+    <?= $form->field($model, 'dec_utlities_rate') ?>
 
-    <?= $form->field($model, 'utilities_perk_id') ?>
+    <?= $form->field($model, 'utilities_rate_date_of_filling') ?>
+
+    <?= $form->field($model, 'dec_utilities_perk') ?>
+
+    <?php // echo $form->field($model, 'utilities_perk_date_of_filling') ?>
+
+    <?php // echo $form->field($model, 'dec_utilities_size_of_flat') ?>
+
+    <?php // echo $form->field($model, 'utilities_date_of_last_payment') ?>
 
     <div class="form-group">
         <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>

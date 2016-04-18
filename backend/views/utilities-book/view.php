@@ -29,9 +29,13 @@ $this->params['breadcrumbs'][] = $this->title;
         'model' => $model,
         'attributes' => [
             'utilities_book_id',
-            'utlities_rate_id',
-            'utilities_invoice_id',
-            'utilities_perk_id',
+            'int_utilities_personal_code',
+            'dec_utlities_rate',
+            'utilities_rate_date_of_filling',
+            'dec_utilities_perk',
+            'utilities_perk_date_of_filling',
+            'dec_utilities_size_of_flat',
+            'utilities_date_of_last_payment',
         ],
     ]) ?>
 

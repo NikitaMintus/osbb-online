@@ -17,13 +17,29 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'electricity_book_id') ?>
 
-    <?= $form->field($model, 'int_number_of_contract') ?>
+    <?= $form->field($model, 'int_number_of_personal_code') ?>
 
-    <?= $form->field($model, 'electricity_rate_id') ?>
+    <?= $form->field($model, 'dec_rate_block1') ?>
 
-    <?= $form->field($model, 'electricity_perk_id') ?>
+    <?= $form->field($model, 'int_rate_block1_limit') ?>
 
-    <?= $form->field($model, 'electricity_invoice_id') ?>
+    <?= $form->field($model, 'dec_rate_block2') ?>
+
+    <?php // echo $form->field($model, 'int_rate_block2_limit') ?>
+
+    <?php // echo $form->field($model, 'dec_rate_block3') ?>
+
+    <?php // echo $form->field($model, 'int_rate_block3_limit') ?>
+
+    <?php // echo $form->field($model, 'dec_electric_perk') ?>
+
+    <?php // echo $form->field($model, 'dec_electric_perk_limit') ?>
+
+    <?php // echo $form->field($model, 'electric_rate_date_of_filling') ?>
+
+    <?php // echo $form->field($model, 'electric_perk_date_of_filling') ?>
+
+    <?php // echo $form->field($model, 'electric_date_of_last_payment') ?>
 
     <div class="form-group">
         <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>
