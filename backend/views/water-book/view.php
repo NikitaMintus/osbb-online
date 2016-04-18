@@ -29,10 +29,17 @@ $this->params['breadcrumbs'][] = $this->title;
         'model' => $model,
         'attributes' => [
             'water_book_id',
-            'water_rate_id',
-            'int_count_of_people',
-            'water_perk_id',
-            'water_invoice_id',
+            'int_water_private_code',
+            'dec_water_rate_delivery',
+            'dec_water_rate_drainage',
+            'water_rate_delivery_date_of_filling',
+            'water_rate_drainage_date_of_filling',
+            'dec_counter_previous_coldwater',
+            'dec_counter_previous_hotwater',
+            'date_of_last_payment',
+            'dec_water_perk',
+            'dec_water_perk_volume',
+            'water_perk_date_of_filling',
         ],
     ]) ?>
 

@@ -8,14 +8,17 @@ use Yii;
  * This is the model class for table "gasBook".
  *
  * @property integer $gas_book_id
- * @property integer $gas_rate_id
- * @property integer $gas_perk_id
- * @property integer $gas_invoice_id
+ * @property integer $int_gas_personal_code
+ * @property string $dec_gas_rate
+ * @property string $gas_rate_date_of_filling
+ * @property string $dec_gas_perk
+ * @property string $dec_perk_gas_volume
+ * @property string $dec_counter_previous
+ * @property string $date_of_last_payment
+ * @property string $gas_perk_date_of_filling
  *
- * @property GasInvoice $gasInvoice
- * @property GasPerk $gasPerk
- * @property GasRate $gasRate
- * @property Paybook[] $paybooks
+ * @property GasInvoice[] $gasInvoices
+ * @property Paybook $paybook
  */
 class GasBook extends \yii\db\ActiveRecord
 {
@@ -33,11 +36,10 @@ class GasBook extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['gas_rate_id', 'gas_perk_id', 'gas_invoice_id'], 'required'],
-            [['gas_rate_id', 'gas_perk_id', 'gas_invoice_id'], 'integer'],
-            [['gas_invoice_id'], 'exist', 'skipOnError' => true, 'targetClass' => GasInvoice::className(), 'targetAttribute' => ['gas_invoice_id' => 'gas_invoice_id']],
-            [['gas_perk_id'], 'exist', 'skipOnError' => true, 'targetClass' => GasPerk::className(), 'targetAttribute' => ['gas_perk_id' => 'gas_perk_id']],
-            [['gas_rate_id'], 'exist', 'skipOnError' => true, 'targetClass' => GasRate::className(), 'targetAttribute' => ['gas_rate_id' => 'gas_rate_id']],
+            [['int_gas_personal_code', 'dec_gas_rate', 'gas_rate_date_of_filling', 'dec_gas_perk', 'dec_perk_gas_volume', 'dec_counter_previous', 'date_of_last_payment', 'gas_perk_date_of_filling'], 'required'],
+            [['int_gas_personal_code'], 'integer'],
+            [['dec_gas_rate', 'dec_gas_perk', 'dec_perk_gas_volume', 'dec_counter_previous'], 'number'],
+            [['gas_rate_date_of_filling', 'date_of_last_payment', 'gas_perk_date_of_filling'], 'safe'],
         ];
     }
 
@@ -48,41 +50,30 @@ class GasBook extends \yii\db\ActiveRecord
     {
         return [
             'gas_book_id' => 'Gas Book ID',
-            'gas_rate_id' => 'Gas Rate ID',
-            'gas_perk_id' => 'Gas Perk ID',
-            'gas_invoice_id' => 'Gas Invoice ID',
+            'int_gas_personal_code' => 'Int Gas Personal Code',
+            'dec_gas_rate' => 'Dec Gas Rate',
+            'gas_rate_date_of_filling' => 'Gas Rate Date Of Filling',
+            'dec_gas_perk' => 'Dec Gas Perk',
+            'dec_perk_gas_volume' => 'Dec Perk Gas Volume',
+            'dec_counter_previous' => 'Dec Counter Previous',
+            'date_of_last_payment' => 'Date Of Last Payment',
+            'gas_perk_date_of_filling' => 'Gas Perk Date Of Filling',
         ];
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getGasInvoice()
+    public function getGasInvoices()
     {
-        return $this->hasOne(GasInvoice::className(), ['gas_invoice_id' => 'gas_invoice_id']);
+        return $this->hasMany(GasInvoice::className(), ['gas_book_id' => 'gas_book_id']);
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getGasPerk()
+    public function getPaybook()
     {
-        return $this->hasOne(GasPerk::className(), ['gas_perk_id' => 'gas_perk_id']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getGasRate()
-    {
-        return $this->hasOne(GasRate::className(), ['gas_rate_id' => 'gas_rate_id']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getPaybooks()
-    {
-        return $this->hasMany(Paybook::className(), ['gas_book_id' => 'gas_book_id']);
+        return $this->hasOne(Paybook::className(), ['gas_book_id' => 'gas_book_id']);
     }
 }

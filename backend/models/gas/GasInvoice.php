@@ -8,17 +8,18 @@ use Yii;
  * This is the model class for table "gasInvoice".
  *
  * @property integer $gas_invoice_id
- * @property double $fl_counter_current
- * @property double $fl_counter_previous
- * @property double $fl_subtraction
- * @property integer $gas_rate_id
- * @property double $fl_sum
- * @property string $date
- * @property double $fl_fine
- * @property integer $gas_perk_id
- * @property double $fl_total
+ * @property integer $gas_book_id
+ * @property string $adress
+ * @property string $dec_counter_current
+ * @property string $dec_counter_previous
+ * @property string $dec_subtraction
+ * @property string $dec_rate
+ * @property string $dec_sum
+ * @property string $dec_perk
+ * @property string $date_of_payment
+ * @property string $dec_total
  *
- * @property GasBook[] $gasBooks
+ * @property GasBook $gasBook
  */
 class GasInvoice extends \yii\db\ActiveRecord
 {
@@ -36,10 +37,12 @@ class GasInvoice extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['fl_counter_current', 'fl_counter_previous', 'fl_subtraction', 'gas_rate_id', 'fl_sum', 'date', 'fl_total'], 'required'],
-            [['fl_counter_current', 'fl_counter_previous', 'fl_subtraction', 'fl_sum', 'fl_fine', 'fl_total'], 'number'],
-            [['gas_rate_id', 'gas_perk_id'], 'integer'],
-            [['date'], 'safe'],
+            [['gas_book_id', 'adress', 'dec_counter_current', 'dec_counter_previous', 'dec_subtraction', 'dec_rate', 'dec_sum', 'dec_perk', 'date_of_payment', 'dec_total'], 'required'],
+            [['gas_book_id'], 'integer'],
+            [['dec_counter_current', 'dec_counter_previous', 'dec_subtraction', 'dec_rate', 'dec_sum', 'dec_perk', 'dec_total'], 'number'],
+            [['date_of_payment'], 'safe'],
+            [['adress'], 'string', 'max' => 255],
+            [['gas_book_id'], 'exist', 'skipOnError' => true, 'targetClass' => GasBook::className(), 'targetAttribute' => ['gas_book_id' => 'gas_book_id']],
         ];
     }
 
@@ -50,23 +53,24 @@ class GasInvoice extends \yii\db\ActiveRecord
     {
         return [
             'gas_invoice_id' => 'Gas Invoice ID',
-            'fl_counter_current' => 'Fl Counter Current',
-            'fl_counter_previous' => 'Fl Counter Previous',
-            'fl_subtraction' => 'Fl Subtraction',
-            'gas_rate_id' => 'Gas Rate ID',
-            'fl_sum' => 'Fl Sum',
-            'date' => 'Date',
-            'fl_fine' => 'Fl Fine',
-            'gas_perk_id' => 'Gas Perk ID',
-            'fl_total' => 'Fl Total',
+            'gas_book_id' => 'Gas Book ID',
+            'adress' => 'Adress',
+            'dec_counter_current' => 'Dec Counter Current',
+            'dec_counter_previous' => 'Dec Counter Previous',
+            'dec_subtraction' => 'Dec Subtraction',
+            'dec_rate' => 'Dec Rate',
+            'dec_sum' => 'Dec Sum',
+            'dec_perk' => 'Dec Perk',
+            'date_of_payment' => 'Date Of Payment',
+            'dec_total' => 'Dec Total',
         ];
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getGasBooks()
+    public function getGasBook()
     {
-        return $this->hasMany(GasBook::className(), ['gas_invoice_id' => 'gas_invoice_id']);
+        return $this->hasOne(GasBook::className(), ['gas_book_id' => 'gas_book_id']);
     }
 }

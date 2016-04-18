@@ -17,13 +17,27 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'water_book_id') ?>
 
-    <?= $form->field($model, 'water_rate_id') ?>
+    <?= $form->field($model, 'int_water_private_code') ?>
 
-    <?= $form->field($model, 'int_count_of_people') ?>
+    <?= $form->field($model, 'dec_water_rate_delivery') ?>
 
-    <?= $form->field($model, 'water_perk_id') ?>
+    <?= $form->field($model, 'dec_water_rate_drainage') ?>
 
-    <?= $form->field($model, 'water_invoice_id') ?>
+    <?= $form->field($model, 'water_rate_delivery_date_of_filling') ?>
+
+    <?php // echo $form->field($model, 'water_rate_drainage_date_of_filling') ?>
+
+    <?php // echo $form->field($model, 'dec_counter_previous_coldwater') ?>
+
+    <?php // echo $form->field($model, 'dec_counter_previous_hotwater') ?>
+
+    <?php // echo $form->field($model, 'date_of_last_payment') ?>
+
+    <?php // echo $form->field($model, 'dec_water_perk') ?>
+
+    <?php // echo $form->field($model, 'dec_water_perk_volume') ?>
+
+    <?php // echo $form->field($model, 'water_perk_date_of_filling') ?>
 
     <div class="form-group">
         <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>

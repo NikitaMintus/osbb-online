@@ -8,15 +8,20 @@ use Yii;
  * This is the model class for table "waterBook".
  *
  * @property integer $water_book_id
- * @property integer $water_rate_id
- * @property integer $int_count_of_people
- * @property integer $water_perk_id
- * @property integer $water_invoice_id
+ * @property integer $int_water_private_code
+ * @property string $dec_water_rate_delivery
+ * @property string $dec_water_rate_drainage
+ * @property string $water_rate_delivery_date_of_filling
+ * @property string $water_rate_drainage_date_of_filling
+ * @property string $dec_counter_previous_coldwater
+ * @property string $dec_counter_previous_hotwater
+ * @property string $date_of_last_payment
+ * @property string $dec_water_perk
+ * @property string $dec_water_perk_volume
+ * @property string $water_perk_date_of_filling
  *
- * @property Paybook[] $paybooks
- * @property WaterInvoice $waterInvoice
- * @property WaterPerk $waterPerk
- * @property WaterRate $waterRate
+ * @property Paybook $paybook
+ * @property WaterInvoice[] $waterInvoices
  */
 class WaterBook extends \yii\db\ActiveRecord
 {
@@ -34,11 +39,10 @@ class WaterBook extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['water_rate_id', 'int_count_of_people', 'water_perk_id', 'water_invoice_id'], 'required'],
-            [['water_rate_id', 'int_count_of_people', 'water_perk_id', 'water_invoice_id'], 'integer'],
-            [['water_invoice_id'], 'exist', 'skipOnError' => true, 'targetClass' => WaterInvoice::className(), 'targetAttribute' => ['water_invoice_id' => 'water_invoice_id']],
-            [['water_perk_id'], 'exist', 'skipOnError' => true, 'targetClass' => WaterPerk::className(), 'targetAttribute' => ['water_perk_id' => 'water_perk_id']],
-            [['water_rate_id'], 'exist', 'skipOnError' => true, 'targetClass' => WaterRate::className(), 'targetAttribute' => ['water_rate_id' => 'water_rate_id']],
+            [['int_water_private_code', 'dec_water_rate_delivery', 'dec_water_rate_drainage', 'water_rate_delivery_date_of_filling', 'water_rate_drainage_date_of_filling', 'dec_counter_previous_coldwater', 'dec_counter_previous_hotwater', 'date_of_last_payment', 'dec_water_perk', 'dec_water_perk_volume', 'water_perk_date_of_filling'], 'required'],
+            [['int_water_private_code'], 'integer'],
+            [['dec_water_rate_delivery', 'dec_water_rate_drainage', 'dec_counter_previous_coldwater', 'dec_counter_previous_hotwater', 'dec_water_perk', 'dec_water_perk_volume'], 'number'],
+            [['water_rate_delivery_date_of_filling', 'water_rate_drainage_date_of_filling', 'date_of_last_payment', 'water_perk_date_of_filling'], 'safe'],
         ];
     }
 
@@ -49,42 +53,33 @@ class WaterBook extends \yii\db\ActiveRecord
     {
         return [
             'water_book_id' => 'Water Book ID',
-            'water_rate_id' => 'Water Rate ID',
-            'int_count_of_people' => 'Int Count Of People',
-            'water_perk_id' => 'Water Perk ID',
-            'water_invoice_id' => 'Water Invoice ID',
+            'int_water_private_code' => 'Int Water Private Code',
+            'dec_water_rate_delivery' => 'Dec Water Rate Delivery',
+            'dec_water_rate_drainage' => 'Dec Water Rate Drainage',
+            'water_rate_delivery_date_of_filling' => 'Water Rate Delivery Date Of Filling',
+            'water_rate_drainage_date_of_filling' => 'Water Rate Drainage Date Of Filling',
+            'dec_counter_previous_coldwater' => 'Dec Counter Previous Coldwater',
+            'dec_counter_previous_hotwater' => 'Dec Counter Previous Hotwater',
+            'date_of_last_payment' => 'Date Of Last Payment',
+            'dec_water_perk' => 'Dec Water Perk',
+            'dec_water_perk_volume' => 'Dec Water Perk Volume',
+            'water_perk_date_of_filling' => 'Water Perk Date Of Filling',
         ];
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getPaybooks()
+    public function getPaybook()
     {
-        return $this->hasMany(Paybook::className(), ['water_book_id' => 'water_book_id']);
+        return $this->hasOne(Paybook::className(), ['water_book_id' => 'water_book_id']);
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getWaterInvoice()
+    public function getWaterInvoices()
     {
-        return $this->hasOne(WaterInvoice::className(), ['water_invoice_id' => 'water_invoice_id']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getWaterPerk()
-    {
-        return $this->hasOne(WaterPerk::className(), ['water_perk_id' => 'water_perk_id']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getWaterRate()
-    {
-        return $this->hasOne(WaterRate::className(), ['water_rate_id' => 'water_rate_id']);
+        return $this->hasMany(WaterInvoice::className(), ['water_book_id' => 'water_book_id']);
     }
 }

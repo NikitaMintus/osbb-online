@@ -29,9 +29,14 @@ $this->params['breadcrumbs'][] = $this->title;
         'model' => $model,
         'attributes' => [
             'gas_book_id',
-            'gas_rate_id',
-            'gas_perk_id',
-            'gas_invoice_id',
+            'int_gas_personal_code',
+            'dec_gas_rate',
+            'gas_rate_date_of_filling',
+            'dec_gas_perk',
+            'dec_perk_gas_volume',
+            'dec_counter_previous',
+            'date_of_last_payment',
+            'gas_perk_date_of_filling',
         ],
     ]) ?>
 

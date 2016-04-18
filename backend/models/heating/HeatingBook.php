@@ -8,20 +8,24 @@ use Yii;
  * This is the model class for table "heatingBook".
  *
  * @property integer $heating_book_id
- * @property integer $heating_rate_id
- * @property integer $hotwater_rate_id
- * @property integer $heating_invoice_id
- * @property integer $hotwater_invoice_id
- * @property integer $heating_perk_id
- * @property integer $hotwater_perk_id
+ * @property integer $int_heating_private_code
+ * @property string $dec_hotwater_rate
+ * @property string $dec_heating_rate
+ * @property string $dec_hotwater_counter_previous
+ * @property string $dec_heating_counter_previous
+ * @property string $dec_hotwater_perk
+ * @property string $dec_heating_perk
+ * @property string $dec_hotwater_perk_volume
+ * @property string $dec_heating_perk_volume
+ * @property string $hotwater_perk_date_of_filling
+ * @property string $heating_perk_date_of_filling
+ * @property string $hotwater_rate_date_of_filling
+ * @property string $heating_rate_date_of_filling
+ * @property string $date_of_last_payment
  *
- * @property HeatingInvoice $heatingInvoice
- * @property HeatingPerk $heatingPerk
- * @property HeatingRate $heatingRate
- * @property HotwaterInvoice $hotwaterInvoice
- * @property HotwaterPerk $hotwaterPerk
- * @property HotwaterRate $hotwaterRate
- * @property Paybook[] $paybooks
+ * @property HeatingInvoice[] $heatingInvoices
+ * @property HotwaterInvoice[] $hotwaterInvoices
+ * @property Paybook $paybook
  */
 class HeatingBook extends \yii\db\ActiveRecord
 {
@@ -39,14 +43,10 @@ class HeatingBook extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['heating_book_id', 'heating_rate_id', 'hotwater_rate_id', 'heating_invoice_id', 'hotwater_invoice_id', 'heating_perk_id', 'hotwater_perk_id'], 'required'],
-            [['heating_book_id', 'heating_rate_id', 'hotwater_rate_id', 'heating_invoice_id', 'hotwater_invoice_id', 'heating_perk_id', 'hotwater_perk_id'], 'integer'],
-            [['heating_invoice_id'], 'exist', 'skipOnError' => true, 'targetClass' => HeatingInvoice::className(), 'targetAttribute' => ['heating_invoice_id' => 'heating_invoice_id']],
-            [['heating_perk_id'], 'exist', 'skipOnError' => true, 'targetClass' => HeatingPerk::className(), 'targetAttribute' => ['heating_perk_id' => 'heating_perk_id']],
-            [['heating_rate_id'], 'exist', 'skipOnError' => true, 'targetClass' => HeatingRate::className(), 'targetAttribute' => ['heating_rate_id' => 'heating_rate_id']],
-            [['hotwater_invoice_id'], 'exist', 'skipOnError' => true, 'targetClass' => HotwaterInvoice::className(), 'targetAttribute' => ['hotwater_invoice_id' => 'hotwater_invoice_id']],
-            [['hotwater_perk_id'], 'exist', 'skipOnError' => true, 'targetClass' => HotwaterPerk::className(), 'targetAttribute' => ['hotwater_perk_id' => 'hotwater_perk_id']],
-            [['hotwater_rate_id'], 'exist', 'skipOnError' => true, 'targetClass' => HotwaterRate::className(), 'targetAttribute' => ['hotwater_rate_id' => 'hotwater_rate_id']],
+            [['heating_book_id', 'int_heating_private_code', 'dec_hotwater_rate', 'dec_heating_rate', 'dec_hotwater_counter_previous', 'dec_heating_counter_previous', 'dec_hotwater_perk', 'dec_heating_perk', 'dec_hotwater_perk_volume', 'dec_heating_perk_volume', 'hotwater_perk_date_of_filling', 'heating_perk_date_of_filling', 'hotwater_rate_date_of_filling', 'heating_rate_date_of_filling', 'date_of_last_payment'], 'required'],
+            [['heating_book_id', 'int_heating_private_code'], 'integer'],
+            [['dec_hotwater_rate', 'dec_heating_rate', 'dec_hotwater_counter_previous', 'dec_heating_counter_previous', 'dec_hotwater_perk', 'dec_heating_perk', 'dec_hotwater_perk_volume', 'dec_heating_perk_volume'], 'number'],
+            [['hotwater_perk_date_of_filling', 'heating_perk_date_of_filling', 'hotwater_rate_date_of_filling', 'heating_rate_date_of_filling', 'date_of_last_payment'], 'safe'],
         ];
     }
 
@@ -57,68 +57,44 @@ class HeatingBook extends \yii\db\ActiveRecord
     {
         return [
             'heating_book_id' => 'Heating Book ID',
-            'heating_rate_id' => 'Heating Rate ID',
-            'hotwater_rate_id' => 'Hotwater Rate ID',
-            'heating_invoice_id' => 'Heating Invoice ID',
-            'hotwater_invoice_id' => 'Hotwater Invoice ID',
-            'heating_perk_id' => 'Heating Perk ID',
-            'hotwater_perk_id' => 'Hotwater Perk ID',
+            'int_heating_private_code' => 'Int Heating Private Code',
+            'dec_hotwater_rate' => 'Dec Hotwater Rate',
+            'dec_heating_rate' => 'Dec Heating Rate',
+            'dec_hotwater_counter_previous' => 'Dec Hotwater Counter Previous',
+            'dec_heating_counter_previous' => 'Dec Heating Counter Previous',
+            'dec_hotwater_perk' => 'Dec Hotwater Perk',
+            'dec_heating_perk' => 'Dec Heating Perk',
+            'dec_hotwater_perk_volume' => 'Dec Hotwater Perk Volume',
+            'dec_heating_perk_volume' => 'Dec Heating Perk Volume',
+            'hotwater_perk_date_of_filling' => 'Hotwater Perk Date Of Filling',
+            'heating_perk_date_of_filling' => 'Heating Perk Date Of Filling',
+            'hotwater_rate_date_of_filling' => 'Hotwater Rate Date Of Filling',
+            'heating_rate_date_of_filling' => 'Heating Rate Date Of Filling',
+            'date_of_last_payment' => 'Date Of Last Payment',
         ];
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getHeatingInvoice()
+    public function getHeatingInvoices()
     {
-        return $this->hasOne(HeatingInvoice::className(), ['heating_invoice_id' => 'heating_invoice_id']);
+        return $this->hasMany(HeatingInvoice::className(), ['heating_book_id' => 'heating_book_id']);
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getHeatingPerk()
+    public function getHotwaterInvoices()
     {
-        return $this->hasOne(HeatingPerk::className(), ['heating_perk_id' => 'heating_perk_id']);
+        return $this->hasMany(HotwaterInvoice::className(), ['heating_book_id' => 'heating_book_id']);
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getHeatingRate()
+    public function getPaybook()
     {
-        return $this->hasOne(HeatingRate::className(), ['heating_rate_id' => 'heating_rate_id']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getHotwaterInvoice()
-    {
-        return $this->hasOne(HotwaterInvoice::className(), ['hotwater_invoice_id' => 'hotwater_invoice_id']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getHotwaterPerk()
-    {
-        return $this->hasOne(HotwaterPerk::className(), ['hotwater_perk_id' => 'hotwater_perk_id']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getHotwaterRate()
-    {
-        return $this->hasOne(HotwaterRate::className(), ['hotwater_rate_id' => 'hotwater_rate_id']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getPaybooks()
-    {
-        return $this->hasMany(Paybook::className(), ['heating_book_id' => 'heating_book_id']);
+        return $this->hasOne(Paybook::className(), ['heating_book_id' => 'heating_book_id']);
     }
 }

@@ -18,7 +18,9 @@ class WaterBookSearch extends WaterBook
     public function rules()
     {
         return [
-            [['water_book_id', 'water_rate_id', 'int_count_of_people', 'water_perk_id', 'water_invoice_id'], 'integer'],
+            [['water_book_id', 'int_water_private_code'], 'integer'],
+            [['dec_water_rate_delivery', 'dec_water_rate_drainage', 'dec_counter_previous_coldwater', 'dec_counter_previous_hotwater', 'dec_water_perk', 'dec_water_perk_volume'], 'number'],
+            [['water_rate_delivery_date_of_filling', 'water_rate_drainage_date_of_filling', 'date_of_last_payment', 'water_perk_date_of_filling'], 'safe'],
         ];
     }
 
@@ -59,10 +61,17 @@ class WaterBookSearch extends WaterBook
         // grid filtering conditions
         $query->andFilterWhere([
             'water_book_id' => $this->water_book_id,
-            'water_rate_id' => $this->water_rate_id,
-            'int_count_of_people' => $this->int_count_of_people,
-            'water_perk_id' => $this->water_perk_id,
-            'water_invoice_id' => $this->water_invoice_id,
+            'int_water_private_code' => $this->int_water_private_code,
+            'dec_water_rate_delivery' => $this->dec_water_rate_delivery,
+            'dec_water_rate_drainage' => $this->dec_water_rate_drainage,
+            'water_rate_delivery_date_of_filling' => $this->water_rate_delivery_date_of_filling,
+            'water_rate_drainage_date_of_filling' => $this->water_rate_drainage_date_of_filling,
+            'dec_counter_previous_coldwater' => $this->dec_counter_previous_coldwater,
+            'dec_counter_previous_hotwater' => $this->dec_counter_previous_hotwater,
+            'date_of_last_payment' => $this->date_of_last_payment,
+            'dec_water_perk' => $this->dec_water_perk,
+            'dec_water_perk_volume' => $this->dec_water_perk_volume,
+            'water_perk_date_of_filling' => $this->water_perk_date_of_filling,
         ]);
 
         return $dataProvider;

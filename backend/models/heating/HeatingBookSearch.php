@@ -18,7 +18,9 @@ class HeatingBookSearch extends HeatingBook
     public function rules()
     {
         return [
-            [['heating_book_id', 'heating_rate_id', 'hotwater_rate_id', 'heating_invoice_id', 'hotwater_invoice_id', 'heating_perk_id', 'hotwater_perk_id'], 'integer'],
+            [['heating_book_id', 'int_heating_private_code'], 'integer'],
+            [['dec_hotwater_rate', 'dec_heating_rate', 'dec_hotwater_counter_previous', 'dec_heating_counter_previous', 'dec_hotwater_perk', 'dec_heating_perk', 'dec_hotwater_perk_volume', 'dec_heating_perk_volume'], 'number'],
+            [['hotwater_perk_date_of_filling', 'heating_perk_date_of_filling', 'hotwater_rate_date_of_filling', 'heating_rate_date_of_filling', 'date_of_last_payment'], 'safe'],
         ];
     }
 
@@ -59,12 +61,20 @@ class HeatingBookSearch extends HeatingBook
         // grid filtering conditions
         $query->andFilterWhere([
             'heating_book_id' => $this->heating_book_id,
-            'heating_rate_id' => $this->heating_rate_id,
-            'hotwater_rate_id' => $this->hotwater_rate_id,
-            'heating_invoice_id' => $this->heating_invoice_id,
-            'hotwater_invoice_id' => $this->hotwater_invoice_id,
-            'heating_perk_id' => $this->heating_perk_id,
-            'hotwater_perk_id' => $this->hotwater_perk_id,
+            'int_heating_private_code' => $this->int_heating_private_code,
+            'dec_hotwater_rate' => $this->dec_hotwater_rate,
+            'dec_heating_rate' => $this->dec_heating_rate,
+            'dec_hotwater_counter_previous' => $this->dec_hotwater_counter_previous,
+            'dec_heating_counter_previous' => $this->dec_heating_counter_previous,
+            'dec_hotwater_perk' => $this->dec_hotwater_perk,
+            'dec_heating_perk' => $this->dec_heating_perk,
+            'dec_hotwater_perk_volume' => $this->dec_hotwater_perk_volume,
+            'dec_heating_perk_volume' => $this->dec_heating_perk_volume,
+            'hotwater_perk_date_of_filling' => $this->hotwater_perk_date_of_filling,
+            'heating_perk_date_of_filling' => $this->heating_perk_date_of_filling,
+            'hotwater_rate_date_of_filling' => $this->hotwater_rate_date_of_filling,
+            'heating_rate_date_of_filling' => $this->heating_rate_date_of_filling,
+            'date_of_last_payment' => $this->date_of_last_payment,
         ]);
 
         return $dataProvider;
