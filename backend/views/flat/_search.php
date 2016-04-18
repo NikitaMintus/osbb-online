@@ -19,15 +19,15 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'paybook_id') ?>
 
-    <?= $form->field($model, 'owner_id') ?>
-
     <?= $form->field($model, 'block') ?>
 
     <?= $form->field($model, 'floor') ?>
 
-    <?php // echo $form->field($model, 'size_of_flat') ?>
+    <?= $form->field($model, 'size_of_flat') ?>
 
     <?php // echo $form->field($model, 'adress') ?>
+
+    <?php // echo $form->field($model, 'user_id') ?>
 
     <div class="form-group">
         <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>

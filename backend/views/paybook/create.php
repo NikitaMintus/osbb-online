@@ -7,7 +7,6 @@ use yii\helpers\Html;
 /* @var $model backend\models\flat\Paybook */
 
 $this->title = 'Create Paybook';
-$this->params['breadcrumbs'][] = ['label' => 'Flat', 'url' => ['flat/index']];
 $this->params['breadcrumbs'][] = ['label' => 'Paybooks', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>

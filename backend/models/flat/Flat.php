@@ -2,6 +2,7 @@
 
 namespace backend\models\flat;
 
+use common\models\User;
 use Yii;
 
 /**
@@ -9,24 +10,20 @@ use Yii;
  *
  * @property integer $flat_id
  * @property integer $paybook_id
- * @property integer $owner_id
  * @property integer $block
  * @property integer $floor
  * @property double $size_of_flat
  * @property string $adress
+ * @property integer $user_id
  *
- * @property CatalogOfDomicile[] $catalogOfDomiciles
- * @property Owner $owner
  * @property Paybook $paybook
+ * @property User $user
  */
 class Flat extends \yii\db\ActiveRecord
 {
     /**
      * @inheritdoc
      */
-
-    public $ownerPersonId;
-
     public static function tableName()
     {
         return 'flat';
@@ -38,12 +35,12 @@ class Flat extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['flat_id', 'paybook_id', 'owner_id', 'block', 'floor', 'size_of_flat', 'adress'], 'required'],
-            [['flat_id', 'paybook_id', 'owner_id', 'block', 'floor'], 'integer'],
+            [['flat_id', 'paybook_id', 'block', 'floor', 'size_of_flat', 'adress', 'user_id'], 'required'],
+            [['flat_id', 'paybook_id', 'block', 'floor', 'user_id'], 'integer'],
             [['size_of_flat'], 'number'],
             [['adress'], 'string', 'max' => 255],
-            [['owner_id'], 'exist', 'skipOnError' => true, 'targetClass' => Owner::className(), 'targetAttribute' => ['owner_id' => 'owner_id']],
             [['paybook_id'], 'exist', 'skipOnError' => true, 'targetClass' => Paybook::className(), 'targetAttribute' => ['paybook_id' => 'paybook_id']],
+            [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['user_id' => 'id']],
         ];
     }
 
@@ -53,37 +50,15 @@ class Flat extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'flat_id' => 'Номер квартиры',
+            'flat_id' => 'Flat ID',
             'paybook_id' => 'Paybook ID',
-            'owner_id' => 'Owner ID',
-            'block' => 'Номер подъезда',
-            'floor' => 'Этаж',
-            'size_of_flat' => 'Размер квартиры',
-            'adress' => 'Адрес',
+            'block' => 'Block',
+            'floor' => 'Floor',
+            'size_of_flat' => 'Size Of Flat',
+            'adress' => 'Adress',
+            'user_id' => 'User ID',
         ];
     }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getCatalogOfDomiciles()
-    {
-        return $this->hasMany(CatalogOfDomicile::className(), ['flat_id' => 'flat_id']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getOwner()
-    {
-        return $this->hasOne(Owner::className(), ['owner_id' => 'owner_id']);
-    }
-
-//    public function setOwner($personId)
-//    {
-//        $this->owner->person_id = $personId;
-//    }
-
 
     /**
      * @return \yii\db\ActiveQuery
@@ -91,5 +66,13 @@ class Flat extends \yii\db\ActiveRecord
     public function getPaybook()
     {
         return $this->hasOne(Paybook::className(), ['paybook_id' => 'paybook_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getUser()
+    {
+        return $this->hasOne(User::className(), ['id' => 'user_id']);
     }
 }

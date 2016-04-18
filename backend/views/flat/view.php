@@ -29,18 +29,12 @@ $this->params['breadcrumbs'][] = $this->title;
         'model' => $model,
         'attributes' => [
             'flat_id',
-//            'paybook_id',
-            [
-                'label' => 'ФИО',
-                'value' => $model->owner->getPersonFIO(),
-            ],
+            'paybook_id',
             'block',
             'floor',
-            [
-                'label' => 'Площадь квартиры',
-                'value' => $model->size_of_flat . ' кв.м.'
-            ],
+            'size_of_flat',
             'adress',
+            'user_id',
         ],
     ]) ?>
 

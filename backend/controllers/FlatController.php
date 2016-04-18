@@ -2,11 +2,9 @@
 
 namespace backend\controllers;
 
-use backend\models\flat\Owner;
 use Yii;
 use backend\models\flat\Flat;
 use backend\models\flat\FlatSearch;
-use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -14,7 +12,6 @@ use yii\filters\VerbFilter;
 /**
  * FlatController implements the CRUD actions for Flat model.
  */
-
 class FlatController extends Controller
 {
     /**
@@ -27,15 +24,6 @@ class FlatController extends Controller
                 'class' => VerbFilter::className(),
                 'actions' => [
                     'delete' => ['POST'],
-                ],
-            ],
-            'access' => [
-                'class' => AccessControl::className(),
-                'rules' => [
-                    [
-                        'allow' => true,
-                        'roles' => ['@'],
-                    ]
                 ],
             ],
         ];
@@ -76,21 +64,12 @@ class FlatController extends Controller
     public function actionCreate()
     {
         $model = new Flat();
-        $owner = new Owner();
-        if ($model->load(Yii::$app->request->post())) {
-            if($owner->load(Yii::$app->request->post())) {
-                $model->owner_id = $model->flat_id;
-                $owner->owner_id = $model->owner_id;
-//                $owner->person_id = 1;
-                $owner->save();
-                $model->save();
-            }
 
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->flat_id]);
         } else {
             return $this->render('create', [
                 'model' => $model,
-                'owner' => $owner,
             ]);
         }
     }
@@ -105,16 +84,11 @@ class FlatController extends Controller
     {
         $model = $this->findModel($id);
 
-        $owner = $model->owner;
-
-        if ($model->load(Yii::$app->request->post()) && $owner->load(Yii::$app->request->post())) {
-            $model->save();
-            $owner->save();
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->flat_id]);
         } else {
             return $this->render('update', [
                 'model' => $model,
-                'owner' => $owner,
             ]);
         }
     }

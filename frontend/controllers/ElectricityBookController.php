@@ -41,20 +41,18 @@ class ElectricityBookController extends Controller
 
     public function actionPayment()
     {
-        $userID = Yii::$app->user->getId();
-        $flat = Flat::findOne(Yii::$app->user->flat_id);
-        $newData = new ElectricityBook();
-        $model = ElectricityBook::findOne($userID);
+//        $userID = Yii::$app->user->getId();
+//        $flat = Flat::findOne(Yii::$app->user->flat_id);
+//        $newData = new ElectricityBook();
+        $model = new ElectricityBook;
 
-        if ($newData->load(Yii::$app->request->post())) {
-            $newData->save();
+        if ($model->load(Yii::$app->request->post())) {
+            $model->save();
 
 //            return $this->redirect(['view', 'id' => $model->electricity_book_id]);
         } else {
             return $this->render('payment', [
                 'model' => $model,
-                'newData' => $newData,
-                'flat' => $flat,
             ]);
         }
     }

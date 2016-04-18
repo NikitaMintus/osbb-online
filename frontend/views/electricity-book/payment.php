@@ -24,11 +24,11 @@ $this->params['breadcrumbs'][] = $this->title;
 
                 <?php $form = ActiveForm::begin(); ?>
 
-                <?= $form->field($model, 'electricity_rate_id')->label('ФИО');   ?>
+<!--                --><?//= $form->field($model, 'electricity_rate_id')->label('ФИО');   ?>
 
                 <label for="adress">Адрес</label>
-                <?= $model->electricityPerk->dec_perk; ?>
-                <?= $flat->paybook->gas_book_id; ?>
+<!--                --><?//= $model->electricityPerk->dec_perk; ?>
+<!--                --><?//= $flat->paybook->gas_book_id; ?>
                 <input type="text" name="adress" placeholder="Адрес">
 
                 <table border="1" class="electric-receipt">

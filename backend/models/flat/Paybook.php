@@ -2,12 +2,13 @@
 
 namespace backend\models\flat;
 
-use backend\models\heating\HeatingBook;
-use backend\models\utilities\UtilitiesBook;
-use backend\models\water\WaterBook;
-use Yii;
-use backend\models\electricity\ElectricityBook;
 use backend\models\gas\GasBook;
+use backend\models\electricity\ElectricityBook;
+use backend\models\water\WaterBook;
+use backend\models\utilities\UtilitiesBook;
+use backend\models\heating\HeatingBook;
+
+use Yii;
 
 /**
  * This is the model class for table "paybook".
@@ -20,11 +21,11 @@ use backend\models\gas\GasBook;
  * @property integer $electric_book_id
  *
  * @property Flat[] $flats
- * @property ElectricityBook $electricBook
  * @property GasBook $gasBook
- * @property HeatingBook $heatingBook
- * @property UtilitiesBook $utilitiesBook
  * @property WaterBook $waterBook
+ * @property HeatingBook $heatingBook
+ * @property ElectricityBook $electricBook
+ * @property UtilitiesBook $utilitiesBook
  */
 class Paybook extends \yii\db\ActiveRecord
 {
@@ -44,11 +45,16 @@ class Paybook extends \yii\db\ActiveRecord
         return [
             [['utilities_book_id', 'gas_book_id', 'water_book_id', 'heating_book_id', 'electric_book_id'], 'required'],
             [['utilities_book_id', 'gas_book_id', 'water_book_id', 'heating_book_id', 'electric_book_id'], 'integer'],
-            [['electric_book_id'], 'exist', 'skipOnError' => true, 'targetClass' => ElectricityBook::className(), 'targetAttribute' => ['electric_book_id' => 'electricity_book_id']],
+            [['gas_book_id'], 'unique'],
+            [['water_book_id'], 'unique'],
+            [['heating_book_id'], 'unique'],
+            [['electric_book_id'], 'unique'],
+            [['utilities_book_id'], 'unique'],
             [['gas_book_id'], 'exist', 'skipOnError' => true, 'targetClass' => GasBook::className(), 'targetAttribute' => ['gas_book_id' => 'gas_book_id']],
-            [['heating_book_id'], 'exist', 'skipOnError' => true, 'targetClass' => HeatingBook::className(), 'targetAttribute' => ['heating_book_id' => 'heating_book_id']],
-            [['utilities_book_id'], 'exist', 'skipOnError' => true, 'targetClass' => UtilitiesBook::className(), 'targetAttribute' => ['utilities_book_id' => 'utilities_book_id']],
             [['water_book_id'], 'exist', 'skipOnError' => true, 'targetClass' => WaterBook::className(), 'targetAttribute' => ['water_book_id' => 'water_book_id']],
+            [['heating_book_id'], 'exist', 'skipOnError' => true, 'targetClass' => HeatingBook::className(), 'targetAttribute' => ['heating_book_id' => 'heating_book_id']],
+            [['electric_book_id'], 'exist', 'skipOnError' => true, 'targetClass' => ElectricityBook::className(), 'targetAttribute' => ['electric_book_id' => 'electricity_book_id']],
+            [['utilities_book_id'], 'exist', 'skipOnError' => true, 'targetClass' => UtilitiesBook::className(), 'targetAttribute' => ['utilities_book_id' => 'utilities_book_id']],
         ];
     }
 
@@ -78,17 +84,17 @@ class Paybook extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getElectricBook()
+    public function getGasBook()
     {
-        return $this->hasOne(ElectricityBook::className(), ['electricity_book_id' => 'electric_book_id']);
+        return $this->hasOne(GasBook::className(), ['gas_book_id' => 'gas_book_id']);
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getGasBook()
+    public function getWaterBook()
     {
-        return $this->hasOne(GasBook::className(), ['gas_book_id' => 'gas_book_id']);
+        return $this->hasOne(WaterBook::className(), ['water_book_id' => 'water_book_id']);
     }
 
     /**
@@ -102,16 +108,16 @@ class Paybook extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getUtilitiesBook()
+    public function getElectricBook()
     {
-        return $this->hasOne(UtilitiesBook::className(), ['utilities_book_id' => 'utilities_book_id']);
+        return $this->hasOne(ElectricityBook::className(), ['electricity_book_id' => 'electric_book_id']);
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getWaterBook()
+    public function getUtilitiesBook()
     {
-        return $this->hasOne(WaterBook::className(), ['water_book_id' => 'water_book_id']);
+        return $this->hasOne(UtilitiesBook::className(), ['utilities_book_id' => 'utilities_book_id']);
     }
 }

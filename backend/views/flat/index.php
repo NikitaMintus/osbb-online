@@ -2,7 +2,6 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
-use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var $searchModel backend\models\flat\FlatSearch */
@@ -10,8 +9,6 @@ use yii\helpers\Url;
 
 $this->title = 'Flats';
 $this->params['breadcrumbs'][] = $this->title;
-
-
 ?>
 <div class="flat-index">
 
@@ -26,35 +23,16 @@ $this->params['breadcrumbs'][] = $this->title;
         'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
+
             'flat_id',
-            [
-                'attribute' => 'owner_id',
-                'label' => 'Owner',
-                'format' => 'raw',
-                'value' => function($data){
-                    $curOwnerName = $data['owner']->personFio;
-                    return Html::a($curOwnerName, Url::to(['owner/view', 'id' => $data['owner_id']]));
-                },
-                'contentOptions'=>['style' => 'width: 150px'],
-            ],
-            [
-                'label' => 'Paybook',
-                'contentOptions' => ['style' => 'width:150px;'],
-                'format' => 'raw',
-                'value' => function($data){
-                    return Html::a('Paybook', Url::to(['paybook/view', 'id' => $data['paybook_id'], 'pid' => 1]), ['class'=>'btn btn-primary'] );
-                },
-                'contentOptions'=>['style' => 'width: 150px; text-align: center'],
-            ],
+            'paybook_id',
             'block',
             'floor',
             'size_of_flat',
-            'adress',
+            // 'adress',
+            // 'user_id',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>
-
-
-<!--    --><?//= Html::a('Paybook', ['/paybook/index'], ['class'=>'btn btn-primary']) ?>
 </div>

@@ -18,9 +18,9 @@ class FlatSearch extends Flat
     public function rules()
     {
         return [
-            [['flat_id', 'paybook_id', 'block', 'floor'], 'integer'],
+            [['flat_id', 'paybook_id', 'block', 'floor', 'user_id'], 'integer'],
             [['size_of_flat'], 'number'],
-            [['adress', 'owner_id'], 'safe'],
+            [['adress'], 'safe'],
         ];
     }
 
@@ -62,10 +62,10 @@ class FlatSearch extends Flat
         $query->andFilterWhere([
             'flat_id' => $this->flat_id,
             'paybook_id' => $this->paybook_id,
-            'owner_id' => $this->owner_id,
             'block' => $this->block,
             'floor' => $this->floor,
             'size_of_flat' => $this->size_of_flat,
+            'user_id' => $this->user_id,
         ]);
 
         $query->andFilterWhere(['like', 'adress', $this->adress]);
