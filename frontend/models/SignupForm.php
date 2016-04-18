@@ -26,19 +26,21 @@ class SignupForm extends Model
     public function rules()
     {
         return [
-            [['username', 'fio', 'birthday', 'id_code', 'passport', 'place_of_work', 'flat_id'], 'filter', 'filter' => 'trim'],
-            ['username', 'required'],
+            [['username', 'fio', 'birthday', 'id_code', 'passport', 'place_of_work'], 'filter', 'filter' => 'trim'],
+            ['username', 'required', 'message' => 'Введите логин'],
             ['username', 'unique', 'targetClass' => '\common\models\User', 'message' => 'This username has already been taken.'],
             ['username', 'string', 'min' => 2, 'max' => 255],
 
             ['email', 'filter', 'filter' => 'trim'],
-            ['email', 'required'],
+            ['email', 'required', 'message' => 'Введите email'],
             ['email', 'email'],
             ['email', 'string', 'max' => 255],
             ['email', 'unique', 'targetClass' => '\common\models\User', 'message' => 'This email address has already been taken.'],
 
-            ['password', 'required'],
+            ['password', 'required', 'message' => 'Введите пароль'],
             ['password', 'string', 'min' => 6],
+
+            [['username', 'fio', 'birthday', 'id_code', 'passport', 'place_of_work'], 'required', 'message' => 'Это поле обязательное для заполнения'],
         ];
     }
 
@@ -63,7 +65,6 @@ class SignupForm extends Model
         $user->id_code = $this->id_code;
         $user->place_of_work = $this->place_of_work;
         $user->birthday = $this->birthday;
-        $user->flat_id = $this->flat_id;
 
         
         return $user->save() ? $user : null;
