@@ -9,11 +9,15 @@
 namespace frontend\controllers;
 
 
+use backend\models\electricity\ElectricityInvoice;
 use backend\models\flat\Flat;
+use backend\models\flat\Paybook;
+use common\models\User;
 use yii\web\Controller;
 use Yii;
 use yii\data\ActiveDataProvider;
 use backend\models\electricity\ElectricityBook;
+use yii\widgets\ActiveForm;
 
 class ElectricityBookController extends Controller
 {
@@ -41,18 +45,49 @@ class ElectricityBookController extends Controller
 
     public function actionPayment()
     {
-//        $userID = Yii::$app->user->getId();
-//        $flat = Flat::findOne(Yii::$app->user->flat_id);
-//        $newData = new ElectricityBook();
-        $model = new ElectricityBook;
 
-        if ($model->load(Yii::$app->request->post())) {
-            $model->save();
+        $userID = Yii::$app->user->getId();
+        $user = User::findOne($userID);
+        $flat = Flat::findOne(['user_id'=> $userID]);
+        $electricityBook = $flat->paybook->electricBook;
+        $electricityInvoice = new ElectricityInvoice();
 
-//            return $this->redirect(['view', 'id' => $model->electricity_book_id]);
+
+        if(Yii::$app->request->isAjax && $electricityInvoice->load($_POST))
+        {
+            Yii::$app->response->format = 'json';
+            return ActiveForm::validate($electricityInvoice);
+        }
+
+
+        if ($electricityInvoice->load(Yii::$app->request->post()) ) {
+            $electricityInvoice->electric_book_id = 1;
+            $electricityInvoice->adress = $flat->adress;
+//            $electricityInvoice->dec_counter_current = 43;
+//            $electricityInvoice->dec_counter_previous = 43;
+//            $electricityInvoice->dec_substraction = 43;
+//            $electricityInvoice->dec_amount_block3 = 43;
+//            $electricityInvoice->dec_amount_block2 = 43;
+//            $electricityInvoice->dec_amount_block1 = 43;
+//            $electricityInvoice->dec_payment_block1 = 43;
+//            $electricityInvoice->dec_payment_block2 = 43;
+//            $electricityInvoice->dec_payment_block3 = 43;
+//            $electricityInvoice->dec_sum = 43;
+//            $electricityInvoice->dec_electricity_perk = $electricityBook->dec_electric_perk;
+            $electricityInvoice->date_of_filling = date('y-m-d');
+            $electricityBook->dec_counter_previous = $electricityInvoice->dec_counter_current;
+//            $electricityInvoice->dec_total = 43;
+            $electricityInvoice->save();
+            $electricityBook->save();
+
+
+            return $this->redirect(['site/index']);
         } else {
             return $this->render('payment', [
-                'model' => $model,
+                'electricityInvoice' => $electricityInvoice,
+                'electricityBook' => $electricityBook,
+                'flat' => $flat,
+                'user' => $user,
             ]);
         }
     }

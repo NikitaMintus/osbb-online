@@ -12,19 +12,31 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
+    <?= $form->field($model, 'electric_book_id')->textInput() ?>
+
+    <?= $form->field($model, 'adress')->textInput(['maxlength' => true]) ?>
+
     <?= $form->field($model, 'dec_counter_current')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'dec_counter_previous')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'dec_substraction')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'electricity_catalog_rates_invoice_id')->textInput() ?>
+    <?= $form->field($model, 'dec_amount_block1')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'dec_payment_block1')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'dec_amount_block2')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'dec_payment_block2')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'dec_amount_block3')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'dec_payment_block3')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'dec_sum')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'electricity_perk_id')->textInput() ?>
-
-    <?= $form->field($model, 'dec_fine')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'dec_electricity_perk')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'date_of_filling')->textInput() ?>
 

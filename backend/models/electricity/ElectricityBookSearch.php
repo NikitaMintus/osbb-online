@@ -20,7 +20,7 @@ class ElectricityBookSearch extends ElectricityBook
         return [
             [['electricity_book_id', 'int_number_of_personal_code', 'int_rate_block1_limit', 'int_rate_block2_limit', 'int_rate_block3_limit', 'dec_electric_perk_limit'], 'integer'],
             [['dec_rate_block1', 'dec_rate_block2', 'dec_rate_block3', 'dec_electric_perk'], 'number'],
-            [['electric_rate_date_of_filling', 'electric_perk_date_of_filling', 'electric_date_of_last_payment'], 'safe'],
+            [['electric_rate_date_of_filling', 'electric_perk_date_of_filling', 'electric_date_of_last_payment', 'dec_counter_previous'], 'safe'],
         ];
     }
 
@@ -74,6 +74,8 @@ class ElectricityBookSearch extends ElectricityBook
             'electric_perk_date_of_filling' => $this->electric_perk_date_of_filling,
             'electric_date_of_last_payment' => $this->electric_date_of_last_payment,
         ]);
+
+        $query->andFilterWhere(['like', 'dec_counter_previous', $this->dec_counter_previous]);
 
         return $dataProvider;
     }

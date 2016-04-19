@@ -8,7 +8,9 @@
 
 namespace frontend\assets;
 
+
 use yii\web\AssetBundle;
+use yii\web\View;
 
 
 class FrontendAsset extends AssetBundle
@@ -17,8 +19,14 @@ class FrontendAsset extends AssetBundle
     public $baseUrl = '@web';
     public $css = [
         'css/styleUtilities.css',
+        'css/styleElectricity.css',
     ];
     public $js = [
+        'assets/1893dda2/jquery.js',
+        'js/electricityPayment.js',
 
+    ];
+    public $jsOptions = [
+        'position' => View::POS_BEGIN,
     ];
 }

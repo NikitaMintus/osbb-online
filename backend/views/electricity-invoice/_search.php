@@ -17,19 +17,31 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'electricity_invoice_id') ?>
 
+    <?= $form->field($model, 'electric_book_id') ?>
+
+    <?= $form->field($model, 'adress') ?>
+
     <?= $form->field($model, 'dec_counter_current') ?>
 
     <?= $form->field($model, 'dec_counter_previous') ?>
 
-    <?= $form->field($model, 'dec_substraction') ?>
+    <?php // echo $form->field($model, 'dec_substraction') ?>
 
-    <?= $form->field($model, 'electricity_catalog_rates_invoice_id') ?>
+    <?php // echo $form->field($model, 'dec_amount_block1') ?>
+
+    <?php // echo $form->field($model, 'dec_payment_block1') ?>
+
+    <?php // echo $form->field($model, 'dec_amount_block2') ?>
+
+    <?php // echo $form->field($model, 'dec_payment_block2') ?>
+
+    <?php // echo $form->field($model, 'dec_amount_block3') ?>
+
+    <?php // echo $form->field($model, 'dec_payment_block3') ?>
 
     <?php // echo $form->field($model, 'dec_sum') ?>
 
-    <?php // echo $form->field($model, 'electricity_perk_id') ?>
-
-    <?php // echo $form->field($model, 'dec_fine') ?>
+    <?php // echo $form->field($model, 'dec_electricity_perk') ?>
 
     <?php // echo $form->field($model, 'date_of_filling') ?>
 

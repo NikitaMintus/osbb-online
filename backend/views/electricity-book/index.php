@@ -37,6 +37,7 @@ $this->params['breadcrumbs'][] = $this->title;
             // 'electric_rate_date_of_filling',
             // 'electric_perk_date_of_filling',
             // 'electric_date_of_last_payment',
+            // 'dec_counter_previous',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

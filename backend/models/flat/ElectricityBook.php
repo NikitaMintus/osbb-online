@@ -1,6 +1,6 @@
 <?php
 
-namespace backend\models\electricity;
+namespace backend\models\flat;
 
 use Yii;
 
@@ -41,10 +41,11 @@ class ElectricityBook extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['int_number_of_personal_code', 'dec_rate_block1', 'int_rate_block1_limit', 'dec_rate_block2', 'int_rate_block2_limit', 'dec_rate_block3', 'int_rate_block3_limit', 'dec_electric_perk', 'dec_electric_perk_limit', 'electric_rate_date_of_filling', 'electric_perk_date_of_filling', 'electric_date_of_last_payment'], 'required'],
+            [['int_number_of_personal_code', 'dec_rate_block1', 'int_rate_block1_limit', 'dec_rate_block2', 'int_rate_block2_limit', 'dec_rate_block3', 'int_rate_block3_limit', 'dec_electric_perk', 'dec_electric_perk_limit', 'electric_rate_date_of_filling', 'electric_perk_date_of_filling', 'electric_date_of_last_payment', 'dec_counter_previous'], 'required'],
             [['int_number_of_personal_code', 'int_rate_block1_limit', 'int_rate_block2_limit', 'int_rate_block3_limit', 'dec_electric_perk_limit'], 'integer'],
             [['dec_rate_block1', 'dec_rate_block2', 'dec_rate_block3', 'dec_electric_perk'], 'number'],
             [['electric_rate_date_of_filling', 'electric_perk_date_of_filling', 'electric_date_of_last_payment'], 'safe'],
+            [['dec_counter_previous'], 'string', 'max' => 255],
         ];
     }
 
@@ -67,6 +68,7 @@ class ElectricityBook extends \yii\db\ActiveRecord
             'electric_rate_date_of_filling' => 'Electric Rate Date Of Filling',
             'electric_perk_date_of_filling' => 'Electric Perk Date Of Filling',
             'electric_date_of_last_payment' => 'Electric Date Of Last Payment',
+            'dec_counter_previous' => 'Dec Counter Previous',
         ];
     }
 

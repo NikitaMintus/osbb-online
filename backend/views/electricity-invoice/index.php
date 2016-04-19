@@ -9,7 +9,6 @@ use yii\grid\GridView;
 
 $this->title = 'Electricity Invoices';
 $this->params['breadcrumbs'][] = $this->title;
-
 ?>
 <div class="electricity-invoice-index">
 
@@ -26,13 +25,19 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
             'electricity_invoice_id',
+            'electric_book_id',
+            'adress',
             'dec_counter_current',
             'dec_counter_previous',
-            'dec_substraction',
-            'electricity_catalog_rates_invoice_id',
+            // 'dec_substraction',
+            // 'dec_amount_block1',
+            // 'dec_payment_block1',
+            // 'dec_amount_block2',
+            // 'dec_payment_block2',
+            // 'dec_amount_block3',
+            // 'dec_payment_block3',
             // 'dec_sum',
-            // 'electricity_perk_id',
-            // 'dec_fine',
+            // 'dec_electricity_perk',
             // 'date_of_filling',
             // 'dec_total',
 

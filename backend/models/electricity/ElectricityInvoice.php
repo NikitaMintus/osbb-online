@@ -42,15 +42,25 @@ class ElectricityInvoice extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['electric_book_id', 'adress', 'dec_counter_current', 'dec_counter_previous', 'dec_substraction', 'dec_amount_block1', 'dec_payment_block1', 'dec_amount_block2', 'dec_payment_block2', 'dec_amount_block3', 'dec_payment_block3', 'dec_sum', 'dec_electricity_perk', 'date_of_filling', 'dec_total'], 'required'],
+            [['electric_book_id', 'adress', 'dec_counter_current', 'dec_counter_previous', 'dec_substraction', 'dec_amount_block1', 'dec_payment_block1', 'dec_amount_block2', 'dec_payment_block2', 'dec_amount_block3', 'dec_payment_block3', 'dec_sum', 'dec_electricity_perk', 'date_of_filling', 'dec_total'], 'required', 'message' => 'Это поле обязательно для заполнения'],
             [['electric_book_id'], 'integer'],
-            [['dec_counter_current', 'dec_counter_previous', 'dec_substraction', 'dec_amount_block1', 'dec_payment_block1', 'dec_amount_block2', 'dec_payment_block2', 'dec_amount_block3', 'dec_payment_block3', 'dec_sum', 'dec_electricity_perk', 'dec_total'], 'number'],
+            [['dec_counter_current'], 'checkCounterCurrent'],
+            [['dec_counter_current', 'dec_counter_previous', 'dec_substraction', 'dec_amount_block1', 'dec_payment_block1', 'dec_amount_block2', 'dec_payment_block2', 'dec_amount_block3', 'dec_payment_block3', 'dec_sum', 'dec_electricity_perk', 'dec_total'], 'number', 'message' => 'Это поле должно содержать только числа'],
             [['date_of_filling'], 'safe'],
             [['adress'], 'string', 'max' => 255],
             [['electric_book_id'], 'exist', 'skipOnError' => true, 'targetClass' => ElectricityBook::className(), 'targetAttribute' => ['electric_book_id' => 'electricity_book_id']],
         ];
     }
 
+    public function checkCounterCurrent($attribute, $params)
+    {
+        $current = $this->dec_counter_current;
+        $previous = $this->dec_counter_previous;
+        if($previous > $current)
+        {
+            $this->addError($attribute, 'Текущие показатели должны быть больше предыдущих');
+        }
+    }
     /**
      * @inheritdoc
      */

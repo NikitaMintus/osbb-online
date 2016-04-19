@@ -8,7 +8,7 @@ use yii\data\ActiveDataProvider;
 use backend\models\electricity\ElectricityInvoice;
 
 /**
- * ElectricityInvoiceSearch represents the model behind the search form about `backend\models\ElectricityInvoice`.
+ * ElectricityInvoiceSearch represents the model behind the search form about `backend\models\electricity\ElectricityInvoice`.
  */
 class ElectricityInvoiceSearch extends ElectricityInvoice
 {
@@ -18,9 +18,9 @@ class ElectricityInvoiceSearch extends ElectricityInvoice
     public function rules()
     {
         return [
-            [['electricity_invoice_id', 'electricity_catalog_rates_invoice_id', 'electricity_perk_id'], 'integer'],
-            [['dec_counter_current', 'dec_counter_previous', 'dec_substraction', 'dec_sum', 'dec_fine', 'dec_total'], 'number'],
-            [['date_of_filling'], 'safe'],
+            [['electricity_invoice_id', 'electric_book_id'], 'integer'],
+            [['adress', 'date_of_filling'], 'safe'],
+            [['dec_counter_current', 'dec_counter_previous', 'dec_substraction', 'dec_amount_block1', 'dec_payment_block1', 'dec_amount_block2', 'dec_payment_block2', 'dec_amount_block3', 'dec_payment_block3', 'dec_sum', 'dec_electricity_perk', 'dec_total'], 'number'],
         ];
     }
 
@@ -61,16 +61,23 @@ class ElectricityInvoiceSearch extends ElectricityInvoice
         // grid filtering conditions
         $query->andFilterWhere([
             'electricity_invoice_id' => $this->electricity_invoice_id,
+            'electric_book_id' => $this->electric_book_id,
             'dec_counter_current' => $this->dec_counter_current,
             'dec_counter_previous' => $this->dec_counter_previous,
             'dec_substraction' => $this->dec_substraction,
-            'electricity_catalog_rates_invoice_id' => $this->electricity_catalog_rates_invoice_id,
+            'dec_amount_block1' => $this->dec_amount_block1,
+            'dec_payment_block1' => $this->dec_payment_block1,
+            'dec_amount_block2' => $this->dec_amount_block2,
+            'dec_payment_block2' => $this->dec_payment_block2,
+            'dec_amount_block3' => $this->dec_amount_block3,
+            'dec_payment_block3' => $this->dec_payment_block3,
             'dec_sum' => $this->dec_sum,
-            'electricity_perk_id' => $this->electricity_perk_id,
-            'dec_fine' => $this->dec_fine,
+            'dec_electricity_perk' => $this->dec_electricity_perk,
             'date_of_filling' => $this->date_of_filling,
             'dec_total' => $this->dec_total,
         ]);
+
+        $query->andFilterWhere(['like', 'adress', $this->adress]);
 
         return $dataProvider;
     }
