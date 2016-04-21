@@ -23,6 +23,7 @@ class AppAsset extends AssetBundle
         'css/site.css',
     ];
     public $js = [
+        'js/electricityPayment.js',
     ];
     public $jsOptions = [
         'position' => View::POS_BEGIN,

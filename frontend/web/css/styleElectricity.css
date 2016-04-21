@@ -1,3 +1,31 @@
 .electric-receipt input{
    margin: 0 auto;
 }
+
+/*canvas#w0{*/
+   /*margin:0px 50px;*/
+/*}*/
+
+.charts-headers canvas{
+   margin: 0 70px;
+}
+
+.charts-headers h3{
+   margin: 20px 70px;
+}
+
+.electricity-book-charts h1 {
+   text-align: center;
+}
+
+#electricity-select-type-chart {
+   margin-left: 15px;
+}
+
+.electricity-choose-diagram {
+   padding: 20px 0;
+}
+/*.charts-headers h3{*/
+   /*display: inline-block;*/
+   /*margin: 0 50px ;*/
+/*}*/

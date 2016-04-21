@@ -43,6 +43,53 @@ class ElectricityBookController extends Controller
         ]);
     }
 
+    public function actionCharts()
+    {
+        $userID = Yii::$app->user->getId();
+        $user = User::findOne($userID);
+        $flat = Flat::findOne(['user_id'=> $userID]);
+        $electricityBookId = $flat->paybook->electricBook->electricity_book_id;
+        $electricityInvoices = ElectricityInvoice::find()
+            ->where(['electric_book_id' => $electricityBookId])
+            ->all();
+
+
+
+
+        $type = Yii::$app->request->post('selectType');
+
+        switch($type)
+        {
+            case 0:
+                $type = 0;
+                break;
+            case 1:
+                $type = 1;
+                break;
+            case 2:
+                $type = 2;
+                break;
+        }
+
+
+        foreach($electricityInvoices as $key => $value){
+            $payments[] = $value->dec_total;
+            $amounts[] = $value->dec_substraction;
+            $dates[] = $value->date_of_filling;
+        }
+
+        return $this->render('charts',[
+            'electricityInvoices' => $electricityInvoices,
+            'flat' => $flat,
+            'user' => $user,
+            'type' => $type,
+            'payments' => $payments,
+            'amounts' => $amounts,
+            'dates' => $dates,
+        ]);
+
+    }
+
     public function actionPayment()
     {
 

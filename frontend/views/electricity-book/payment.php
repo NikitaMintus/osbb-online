@@ -19,7 +19,7 @@ $this->title = 'Оплата электроэнергии';
 $this->params['breadcrumbs'][] = $this->title;
 
 ?>
-<div class="utilities-book-index">
+<div class="electricity-book-payment">
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 

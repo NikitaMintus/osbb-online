@@ -12,7 +12,7 @@ FrontendAsset::register($this);
 $this->title = 'Оплата коммунальных услуг';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="utilities-book-index">
+<div class="electricity-book-invoices">
 
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>

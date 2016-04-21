@@ -48,6 +48,7 @@ $userID = Yii::$app->user->getId();
                                 'items' => [
                                     ['label' => 'Квитанции', 'url' => ['/electricity-book/invoices']],
                                     ['label' => 'Оплата', 'url' => ['/electricity-book/payment' ] ],
+                                    ['label' => 'Диаграммы', 'url' => ['/electricity-book/charts' ] ],
                                 ],
                             ],
                             ['label' => 'Коммунальные платежи', 'icon' => 'fa fa-file-code-o', 'url' => ['/utilities-book'],

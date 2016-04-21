@@ -100,6 +100,10 @@ $(document).ready(function() {
             return Math.round(value * n) / n;
     }
 
+    //$('#electricity-select-type-chart').change(function(){
+    //    $('#electricity-choose-type-form').submit();
+    //});
+
 
 });
 
