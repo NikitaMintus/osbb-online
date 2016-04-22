@@ -139,9 +139,15 @@ $this->params['breadcrumbs'][] = $this->title;
                 <?php ActiveForm::end(); ?>
         </div>
     </div>
-    <?= Html::a('<i class="fa glyphicon glyphicon-hand-up"></i> Privacy Statement', ['/electricity-book/pdf-invoice'], [
+    <?= Html::a('<i class="fa glyphicon glyphicon-hand-up"></i> Privacy Statement', ['/electricity-book/pdf-invoice', '/electricity-book/send-pdf-invoice'], [
         'class'=>'btn btn-danger',
         'target'=>'_blank',
+        'data-toggle'=>'tooltip',
+        'title'=>'Will open the generated PDF file in a new window'
+    ]); ?>
+
+    <?= Html::a('<i class="fa glyphicon glyphicon-hand-up"></i> Send Email', ['/electricity-book/send-pdf-invoice' ], [
+        'class'=>'btn btn-danger',
         'data-toggle'=>'tooltip',
         'title'=>'Will open the generated PDF file in a new window'
     ]); ?>

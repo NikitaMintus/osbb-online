@@ -19,6 +19,7 @@ use yii\data\ActiveDataProvider;
 use backend\models\electricity\ElectricityBook;
 use yii\widgets\ActiveForm;
 use kartik\mpdf\Pdf;
+use yii\swiftmailer\Mailer;
 
 class ElectricityBookController extends Controller
 {
@@ -128,6 +129,9 @@ class ElectricityBookController extends Controller
             $electricityInvoice->save();
             $electricityBook->save();
 
+            $this->actionPdfInvoice();
+            $this->actionSendPdfInvoice();
+
 
             return $this->redirect(['site/index']);
         } else {
@@ -152,6 +156,8 @@ class ElectricityBookController extends Controller
         $pdf = new Pdf([
             'mode' => Pdf::MODE_UTF8, // leaner size using standard fonts
             'format' => Pdf::FORMAT_A4,
+            'filename' => Yii::getAlias('@webroot') . '/attachments/index5.pdf',
+            'destination' => Pdf::DEST_FILE,
             'orientation' => Pdf::ORIENT_PORTRAIT,
             'cssFile' => '@webroot/css/pdfElectricityInvoice.css',
             'content' => $this->renderPartial('pdfElectricityInvoice', [
@@ -161,8 +167,7 @@ class ElectricityBookController extends Controller
                 'user' => $user,
             ]),
             'options' => [
-//                'title' => 'Privacy Policy - Krajee.com',
-//                'subject' => 'Generating PDF files via yii2-mpdf extension has never been easy',
+                'tempPath' => '@webroot/attachments',
             ],
             'methods' => [
                 'SetHeader' => ['Сгенерировано с помощью: Osbb-online||Дата оплаты: ' . $electricityInvoice->date_of_filling],
@@ -171,5 +176,17 @@ class ElectricityBookController extends Controller
             ]
         ]);
         return $pdf->render();
+    }
+
+    public function actionSendPdfInvoice()
+    {
+
+        Yii::$app->mail->compose()
+            ->setFrom('nikita.mintus@gmail.com')
+            ->setTo('nikita_mintus@mail.ru')
+            ->setSubject('Email sent from Yii2-Swiftmailer')
+            ->setTextBody('ХУЯКА 2')
+            ->attach(Yii::getAlias('@webroot') . '/attachments/index5.pdf')
+            ->send();
     }
 }
