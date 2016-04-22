@@ -41,31 +41,31 @@ $this->params['breadcrumbs'][] = $this->title;
                     </thead>
                     <tbody>
                     <tr>
-                        <td>Предыдущие</td>
-                        <td colspan="5">
+                        <td colspan="2">Предыдущие</td>
+                        <td colspan="6">
                             <?= $form->field($electricityInvoice, 'dec_counter_previous', ['options' => ['id' => '#electricityinvoice_counter_previous']])->textInput(['maxlength' => 30, 'readonly'=>true, 'style'=>'width:200px;', 'value' => $electricityBook->dec_counter_previous])->label('')  ?>
                         </td>
                     </tr>
                     <tr>
-                        <td>Текущие</td>
-                        <td colspan="5">
+                        <td colspan="2">Текущие</td>
+                        <td colspan="6">
                             <?= $form->field($electricityInvoice, 'dec_counter_current')->textInput(['maxlength' => 30, 'style'=>'width:200px;'])->label('')->error(['id' => 'electricityinvoice_counter_current_error'])   ?>
                         </td>
                     </tr>
                     <tr>
-                        <td>Разница</td>
-                        <td colspan="5">
+                        <td colspan="2">Разница</td>
+                        <td colspan="6">
                             <?= $form->field($electricityInvoice, 'dec_substraction')->textInput(['maxlength' => 30, 'style'=>'width:200px;', 'readonly' => true])->label('')  ?>
                         </td>
                     </tr>
                     <tr>
-                        <td>Тарифы</td>
+                        <td colspan="2">Тарифы</td>
                         <td colspan="2">1 блок</td>
                         <td colspan="2">2 блок</td>
                         <td colspan="2">3 блок</td>
                     </tr>
                     <tr>
-                        <td>Тариф, грн</td>
+                        <td colspan="2">Тариф, грн</td>
                         <td colspan="2">
                             <div class="electricity-rates" id="electricity-rates-block1"><?= $electricityBook->dec_rate_block1 ?></div>
                         </td>
@@ -77,7 +77,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         </td>
                     </tr>
                     <tr>
-                        <td>До, Квт.час</td>
+                        <td colspan="2">До, Квт.час</td>
                         <td colspan="2">
                             <div class="electricity-rates" id="electricity-rates-block1-limit"><?= $electricityBook->int_rate_block1_limit ?></div>
                         </td>
@@ -89,7 +89,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         </td>
                     </tr>
                     <tr>
-                        <td>кВт.час</td>
+                        <td colspan="2">кВт.час</td>
                         <td colspan="2">
                             <?= $form->field($electricityInvoice, 'dec_amount_block1')->textInput(['maxlength' => 30, 'style'=>'width:200px;', 'readonly' => true])->label('')  ?>
                         </td>
@@ -101,7 +101,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         </td>
                     </tr>
                     <tr>
-                        <td>грн</td>
+                        <td colspan="2">грн</td>
                         <td colspan="2">
                             <?= $form->field($electricityInvoice, 'dec_payment_block1')->textInput(['maxlength' => 30, 'style'=>'width:200px;', 'readonly' => true])->label('')  ?>
                         </td>
@@ -113,21 +113,21 @@ $this->params['breadcrumbs'][] = $this->title;
                         </td>
                     </tr>
                     <tr>
-                        <td>Cумма, грн</td>
-                        <td colspan="5">
-                            <?= $form->field($electricityInvoice, 'dec_sum')->textInput(['readonly' => true, 'maxlength' => 30, 'style'=>'width:200px;', 'value' => 0])   ?>
+                        <td colspan="2">Cумма, грн</td>
+                        <td colspan="6">
+                            <?= $form->field($electricityInvoice, 'dec_sum')->textInput(['readonly' => true, 'maxlength' => 30, 'style'=>'width:200px;'])->label('')   ?>
                         </td>
                     </tr>
                     <tr>
-                        <td>скидка, %</td>
-                        <td colspan="5">
+                        <td colspan="2">скидка, %</td>
+                        <td colspan="6">
                             <?= $form->field($electricityInvoice, 'dec_electricity_perk')->textInput(['maxlength' => 30, 'style'=>'width:200px;', 'readonly' => true, 'value' => $electricityBook->dec_electric_perk])->label('')  ?>
                         </td>
                     </tr>
                     <tr>
-                        <td>Всего, грн</td>
-                        <td colspan="5">
-                            <?= $form->field($electricityInvoice, 'dec_total')->textInput(['readonly' => true, 'maxlength' => 30, 'style'=>'width:200px;', 'value' => 0])   ?>
+                        <td colspan="2">Всего, грн</td>
+                        <td colspan="6">
+                            <?= $form->field($electricityInvoice, 'dec_total')->textInput(['readonly' => true, 'maxlength' => 30, 'style'=>'width:200px;'])->label('')   ?>
                         </td>
                     </tr>
                     </tbody>
@@ -139,5 +139,11 @@ $this->params['breadcrumbs'][] = $this->title;
                 <?php ActiveForm::end(); ?>
         </div>
     </div>
+    <?= Html::a('<i class="fa glyphicon glyphicon-hand-up"></i> Privacy Statement', ['/electricity-book/pdf-invoice'], [
+        'class'=>'btn btn-danger',
+        'target'=>'_blank',
+        'data-toggle'=>'tooltip',
+        'title'=>'Will open the generated PDF file in a new window'
+    ]); ?>
 </div>
 

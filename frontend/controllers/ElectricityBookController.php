@@ -18,6 +18,7 @@ use Yii;
 use yii\data\ActiveDataProvider;
 use backend\models\electricity\ElectricityBook;
 use yii\widgets\ActiveForm;
+use kartik\mpdf\Pdf;
 
 class ElectricityBookController extends Controller
 {
@@ -137,5 +138,38 @@ class ElectricityBookController extends Controller
                 'user' => $user,
             ]);
         }
+    }
+
+    public function actionPdfInvoice() {
+
+        $userID = Yii::$app->user->getId();
+        $user = User::findOne($userID);
+        $flat = Flat::findOne(['user_id'=> $userID]);
+        $electricityBook = $flat->paybook->electricBook;
+        $electricityInvoice = $electricityBook->electricityInvoices[1];
+//        $electricityInvoice = new ElectricityInvoice();
+        $path = '@web/css/styleUtilities.css';
+        $pdf = new Pdf([
+            'mode' => Pdf::MODE_UTF8, // leaner size using standard fonts
+            'format' => Pdf::FORMAT_A4,
+            'orientation' => Pdf::ORIENT_PORTRAIT,
+            'cssFile' => '@webroot/css/pdfElectricityInvoice.css',
+            'content' => $this->renderPartial('pdfElectricityInvoice', [
+                'electricityInvoice' => $electricityInvoice,
+                'electricityBook' => $electricityBook,
+                'flat' => $flat,
+                'user' => $user,
+            ]),
+            'options' => [
+//                'title' => 'Privacy Policy - Krajee.com',
+//                'subject' => 'Generating PDF files via yii2-mpdf extension has never been easy',
+            ],
+            'methods' => [
+                'SetHeader' => ['Сгенерировано с помощью: Osbb-online||Дата оплаты: ' . $electricityInvoice->date_of_filling],
+                'SetFooter' => ['|Страница {PAGENO}|'],
+
+            ]
+        ]);
+        return $pdf->render();
     }
 }

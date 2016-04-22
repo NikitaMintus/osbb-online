@@ -1,0 +1,28 @@
+.electric-receipt{
+    /*border: 10px solid #0f0f0f;*/
+    border-collapse: collapse;
+    visibility: hidden;
+}
+
+.electric-receipt {
+ line-height: 35px;
+}
+
+td {
+    text-align:'.' center;
+    /*max-width: 70px !important;*/
+    width: 220px !important;
+}
+tr {
+    height: 90px !important;;
+}
+input[type="text"]{
+    font-size: larger;
+}
+
+h1{
+    text-align: center;
+}
+
+
+
