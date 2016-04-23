@@ -20,13 +20,14 @@ use backend\models\electricity\ElectricityBook;
 use yii\widgets\ActiveForm;
 use kartik\mpdf\Pdf;
 use yii\swiftmailer\Mailer;
+use DateTime;
 
 class ElectricityBookController extends Controller
 {
     public function actionIndex()
     {
         $dataProvider = new ActiveDataProvider([
-            'query' => ElectricityBook::find()->with('utilitiesInvoice'),
+            'query' => ElectricityBook::find()->with('electricityInvoice'),
         ]);
 
         return $this->render('index', [
@@ -37,7 +38,7 @@ class ElectricityBookController extends Controller
     public function actionInvoices()
     {
         $dataProvider = new ActiveDataProvider([
-            'query' => ElectricityBook::find()->with('utilitiesInvoice'),
+            'query' => ElectricityInvoice::find(),
         ]);
 
         return $this->render('invoices', [
@@ -55,10 +56,20 @@ class ElectricityBookController extends Controller
             ->where(['electric_book_id' => $electricityBookId])
             ->all();
 
+        $date = new DateTime(date('d-m-Y'));
+        $date->modify('-1 month');
 
+        $dateFrom = $date->format('d-m-Y');
+        $dateTo = date('d-m-Y');
+        $type = 0;
+        if(Yii::$app->request->isPost)
+        {
+            $type = Yii::$app->request->post('selectType');
+            $dateFrom = Yii::$app->request->post('dateFrom');
+            $dateTo = Yii::$app->request->post('dateTo');
+        }
 
-
-        $type = Yii::$app->request->post('selectType');
+//        $typeNew = Yii::$app->request->post('selectTypeNew');
 
         switch($type)
         {
@@ -75,9 +86,13 @@ class ElectricityBookController extends Controller
 
 
         foreach($electricityInvoices as $key => $value){
-            $payments[] = $value->dec_total;
-            $amounts[] = $value->dec_substraction;
-            $dates[] = $value->date_of_filling;
+            $dateOfFilling = date('d-m-Y', strtotime($value->date_of_filling));
+            if(strtotime($dateOfFilling) >= strtotime($dateFrom) && strtotime($dateOfFilling) <= strtotime($dateTo))
+            {
+                $dates[] = $dateOfFilling;
+                $payments[] = $value->dec_total;
+                $amounts[] = $value->dec_substraction;
+            }
         }
 
         return $this->render('charts',[
@@ -88,6 +103,8 @@ class ElectricityBookController extends Controller
             'payments' => $payments,
             'amounts' => $amounts,
             'dates' => $dates,
+            'dateFrom' => $dateFrom,
+            'dateTo' => $dateTo,
         ]);
 
     }
@@ -129,8 +146,8 @@ class ElectricityBookController extends Controller
             $electricityInvoice->save();
             $electricityBook->save();
 
-            $this->actionPdfInvoice();
-            $this->actionSendPdfInvoice();
+//            $this->actionPdfInvoice();
+//            $this->actionSendPdfInvoice();
 
 
             return $this->redirect(['site/index']);

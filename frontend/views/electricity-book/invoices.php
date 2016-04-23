@@ -1,9 +1,8 @@
 <?php
 use yii\helpers\Html;
+use yii\grid\GridView;
 
-use frontend\assets\FrontendAsset;
 
-FrontendAsset::register($this);
 
 /* @var $this yii\web\View */
 /* @var $searchModel backend\models\utilities\UtilitiesBookSearch */
@@ -17,90 +16,32 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
+    <?= GridView::widget([
+        'dataProvider' => $dataProvider,
+        'filterModel' => $searchModel,
+        'columns' => [
+            ['class' => 'yii\grid\SerialColumn'],
 
-    <div class="row">
-        <div class="col-md-10 col-sm-12 electric col-md-offset-1 col-sm-offset-0" >
-<!--            <h2>Оплата электроэнергии</h2>-->
-            <h1><?= Html::encode($this->title) ?></h1></br>
-            <form name="electric-form" action="index.html" method="post">
 
-                <label for="fio">ФИО</label>
-                <input type="text" name="fio" placeholder="ФИО">
+            'electric_book_id',
+             'electricity_invoice_id',
+             'electric_book_id',
+             'adress',
+              'dec_counter_current',
+            'dec_counter_previous',
+            'dec_substraction',
+//    * @property string $dec_payment_block1
+//    * @property string $dec_amount_block2
+//    * @property string $dec_payment_block2
+//    * @property string $dec_amount_block3
+//    * @property string $dec_payment_block3
+//    * @property string $dec_sum
+//    * @property string $dec_electricity_perk
+//    * @property string $date_of_filling
+//    * @property string $dec_total
 
-                <label for="adress">Адрес</label>
-                <input type="text" name="adress" placeholder="Адрес">
 
-                <table border="1" class="electric-receipt">
-                    <thead>
-                    <th colspan="8">Показатели счетчика</th>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <td>Предыдущие</td>
-                        <td colspan="5">
-                            <input type="text" name="previous_value" placeholder="Предыдущие показатели">
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Текущие</td>
-                        <td colspan="5">
-                            <input type="text" name="current_value" placeholder="Текущие показатели">
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Разница</td>
-                        <td colspan="5">
-                            <input type="text" name="diff_value" value = "0" placeholder="Разница" disabled>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Тарифы</td>
-                        <td colspan="2">1 блок</td>
-                        <td colspan="2">2 блок</td>
-                        <td colspan="2">3 блок</td>
-                    </tr>
-                    <tr>
-                        <td>кВт.час</td>
-                        <td colspan="2">
-                            <input type="text" name="block1_kvt" placeholder="кВт.час">
-                        </td>
-                        <td colspan="2">
-                            <input type="text" name="block2_kvt" placeholder="кВт.час">
-                        </td>
-                        <td colspan="2">
-                            <input type="text" name="block3_kvt" placeholder="кВт.час">
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>грн</td>
-                        <td colspan="2">
-                            <input type="text" name="block1_price" placeholder="грн" disabled>
-                        </td>
-                        <td colspan="2">
-                            <input type="text" name="block2_price" placeholder="грн" disabled>
-                        </td>
-                        <td colspan="2">
-                            <input type="text" name="block3_price" placeholder="грн" disabled>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>скидка</td>
-                        <td colspan="5">
-                            <input type="text" name="sale" placeholder="грн">
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Всего, грн</td>
-                        <td colspan="5">
-                            <input type="text" name="total" placeholder="грн" disabled>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
-                <p>
-                    <?= Html::a('Оплатить', ['create'], ['class' => 'btn btn-success']) ?>
-                </p>
-            </form>
-        </div>
-    </div>
+            ['class' => 'yii\grid\ActionColumn'],
+        ],
+    ]); ?>
 </div>

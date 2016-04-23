@@ -14,7 +14,7 @@ $(document).ready(function() {
         var previous = $('#electricityinvoice-dec_counter_previous').val();
         var current = $('#electricityinvoice-dec_counter_current').val();
         var substraction = 0;
-        if((current.indexOf(',') == -1) && !isNaN(parseFloat(current)) && (current !== undefined) && (current > previous ))  {
+        if((current.indexOf(',') == -1) && !isNaN(parseFloat(current)) && (current !== undefined) && (parseFloat(current) > parseFloat(previous) ))  {
             substraction = current - previous;
             $('#electricityinvoice-dec_substraction').val(substraction);
             var payment1 = calculateBlock1(substraction);
