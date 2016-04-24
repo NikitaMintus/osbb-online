@@ -25,6 +25,10 @@ use dmstr\widgets\Alert;
         <?=
         Breadcrumbs::widget(
             [
+                'homeLink' => [
+                    'label' => Yii::t('yii', 'Главная'),
+                    'url' => Yii::$app->homeUrl,
+                ],
                 'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
             ]
         ) ?>

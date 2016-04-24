@@ -20,6 +20,7 @@ $this->title = 'Оплата электроэнергии';
                 <p><strong>ФИО:</strong> <?= $user->fio?></p>
                 <p><strong>Адрес:</strong> <?= $flat->adress?></p>
                 <p><strong>Личный счет:</strong> <?= $electricityBook->int_number_of_personal_code?></p>
+                <p><strong>Дата:</strong> <?= $electricityInvoice->date_of_filling?></p>
             </div>
 
             <table border="1" class="electric-receipt">

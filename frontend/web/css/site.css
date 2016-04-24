@@ -3,6 +3,20 @@ body {
     height: 100%;
 }
 
+.site-item-block {
+    text-align: center;
+    padding: 15px 0;
+
+}
+
+.site-item-block img{
+    /*-webkit-border-radius: 50%;*/
+}
+
+h1{
+    text-align: center;
+}
+
 .wrap {
     min-height: 100%;
     height: auto;

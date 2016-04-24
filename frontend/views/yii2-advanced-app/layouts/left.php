@@ -34,16 +34,15 @@ $userID = Yii::$app->user->getId();
             [
                 'options' => ['class' => 'sidebar-menu'],
                 'items' => [
-                    ['label' => 'Меню администратора', 'options' => ['class' => 'header']],
-                    ['label' => 'Квартиры', 'icon' => 'fa fa-file-code-o', 'url' => ['/flat']],
-                    ['label' => 'Владельцы', 'icon' => 'fa fa-file-code-o', 'url' => ['/owner']],
-                    ['label' => 'Все пользователи', 'icon' => 'fa fa-file-code-o', 'url' => ['/person']],
-                    ['label' => 'Расчетные книжки', 'icon' => 'fa fa-file-code-o', 'url' => ['/paybook'],
+//                    ['label' => 'Меню администратора', 'options' => ['class' => 'header']],
+//                    ['label' => 'Квартиры', 'icon' => 'fa fa-file-code-o', 'url' => ['/flat']],
+//                    ['label' => 'Владельцы', 'icon' => 'fa fa-file-code-o', 'url' => ['/owner']],
+                        ['label' => 'Главная', 'icon' => 'fa fa-file-code-o', 'url' => ['site/index']],
+                        ['label' => 'Расчетные книжки', 'icon' => 'fa fa-file-code-o', 'url' => ['/paybook'],
                         'items' => [
                             ['label' => 'Газ', 'icon' => 'fa fa-file-code-o', 'url' => ['/gas-book']],
                             ['label' => 'Холодная вода и стоки', 'icon' => 'fa fa-file-code-o', 'url' => ['/water-book']],
                             ['label' => 'Отопление и гарячая вода', 'icon' => 'fa fa-file-code-o', 'url' => ['/heating-book']],
-                            ['label' => 'Холодная вода и стоки', 'icon' => 'fa fa-file-code-o', 'url' => ['/water-book']],
                             ['label' => 'Электроэнергия', 'icon' => 'fa fa-file-code-o', 'url' => ['/electricity-book/' ],
                                 'items' => [
                                     ['label' => 'Квитанции', 'url' => ['/electricity-book/invoices']],

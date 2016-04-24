@@ -1,51 +1,64 @@
 <?php
 
 /* @var $this yii\web\View */
+use frontend\assets\FrontendAsset;
+use yii\helpers\Html;
+FrontendAsset::register($this);
+$this->title = 'Главная';
 
-$this->title = 'My Yii Application';
+Yii::$app->setHomeUrl('site/index');
 ?>
+
+
+
 <div class="site-index">
 
-    <div class="jumbotron">
-        <h1>Congratulations!</h1>
-
-        <p class="lead">You have successfully created your Yii-powered application.</p>
-
-        <p><a class="btn btn-lg btn-success" href="http://www.yiiframework.com">Get started with Yii</a></p>
-    </div>
-
     <div class="body-content">
-
+<!--        <h1> Личный кабинет </h1>-->
         <div class="row">
-            <div class="col-lg-4">
-                <h2>Heading</h2>
+            <div class="col-lg-4 site-item-block">
+                <h2>Газ</h2>
+                <a href="#"><img src="images/gas1.png" alt="Газ" width="200px" height="200px"></a>
 
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur.</p>
 
-                <p><a class="btn btn-default" href="http://www.yiiframework.com/doc/">Yii Documentation &raquo;</a></p>
+<!--                <p><a class="btn btn-default" href="http://www.yiiframework.com/doc/">Yii Documentation &raquo;</a></p>-->
             </div>
-            <div class="col-lg-4">
-                <h2>Heading</h2>
+            <div class="col-lg-4 site-item-block" >
+                <h2>Электроэнергия</h2>
+                <a href="electricity-book\invoices"></a>
+                <?= Html::a('<img src="images/electricity5.png" alt="Газ" width="200px" height="200px">', ['/electricity-book/invoices']); ?>
 
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur.</p>
 
-                <p><a class="btn btn-default" href="http://www.yiiframework.com/forum/">Yii Forum &raquo;</a></p>
+<!--                <p><a class="btn btn-default" href="http://www.yiiframework.com/forum/">Yii Forum &raquo;</a></p>-->
             </div>
-            <div class="col-lg-4">
-                <h2>Heading</h2>
+            <div class="col-lg-4 site-item-block" >
+                <h2>Вода</h2>
+                <a href="#"><img src="images/water1.png" alt="Газ" width="200px" height="200px"></a>
 
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur.</p>
+<!--                <p><a class="btn btn-default" href="http://www.yiiframework.com/extensions/">Yii Extensions &raquo;</a></p>-->
+            </div>
 
-                <p><a class="btn btn-default" href="http://www.yiiframework.com/extensions/">Yii Extensions &raquo;</a></p>
+            <div class="col-lg-4 site-item-block">
+                <h2>Отопление</h2>
+                <a href="#"><img src="images/heating2.png" alt="Газ" width="200px" height="200px"></a>
+
+                <!--                <p><a class="btn btn-default" href="http://www.yiiframework.com/extensions/">Yii Extensions &raquo;</a></p>-->
+            </div>
+
+            <div class="col-lg-4 site-item-block">
+                <h2>Квартплата</h2>
+                <a href="#"><img src="images/utilities3.png" alt="Газ" width="200px" height="200px"></a>
+
+<!--                <p><a class="btn btn-default" href="http://www.yiiframework.com/extensions/">Yii Extensions &raquo;</a></p>-->
+            </div>
+
+
+
+            <div class="col-lg-4 site-item-block">
+                <h2>Настройки</h2>
+                <a href="#"><img src="images/settings.svg" alt="Газ" width="200px" height="200px"></a>
+
+<!--                <p><a class="btn btn-default" href="http://www.yiiframework.com/extensions/">Yii Extensions &raquo;</a></p>-->
             </div>
         </div>
 
